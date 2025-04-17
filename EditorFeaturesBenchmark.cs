@@ -31,21 +31,30 @@ namespace AnyText.PerformanceTests
             _lines = File.ReadAllLines($"{Model}.anymeta");
             _anyMetaGrammar.Initialize();
             _parser = _anyMetaGrammar.CreateParser();
-            _parser.Initialize(_lines);
+            _parser.Initialize(_lines, skipValidation: true);
         }
 
+        /// <summary>
+        /// Calculates all semantic tokens in the given file
+        /// </summary>
         [Benchmark]
         public void SemanticTokens()
         {
             _ = _parser.GetSemanticElementsFromRoot().ToArray();
         }
 
+        /// <summary>
+        /// Calculates all folding ranges
+        /// </summary>
         [Benchmark]
         public void FoldingRanges()
         {
             _ = _parser.GetFoldingRangesFromRoot().ToArray();
         }
 
+        /// <summary>
+        /// Calculates the text changes to format the document
+        /// </summary>
         [Benchmark]
         public void Formatting()
         {

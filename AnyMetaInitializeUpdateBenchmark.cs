@@ -42,7 +42,7 @@ namespace AnyText.PerformanceTests
                 _tokenInfo[i] = TokenInfo.FromString(tokenSource[i]);
             }
             _parser = _anyMetaGrammar.CreateParser();
-            _parser.Initialize(_lines);
+            _parser.Initialize(_lines, skipValidation: true);
         }
 
         [IterationSetup]
@@ -68,6 +68,9 @@ namespace AnyText.PerformanceTests
             }
         }
 
+        /// <summary>
+        /// Remove all tokens, then reinitialize the parser (parse from scratch), restore tokens, reinitialize again
+        /// </summary>
         [Benchmark]
         public void ReInitialize()
         {
@@ -75,14 +78,17 @@ namespace AnyText.PerformanceTests
             {
                 _tokensInOrder[i].Remove(_lines);
             }
-            _parser.Initialize(_lines);
+            _parser.Initialize(_lines, skipValidation: true);
             for (int i = TokenChanges - 1; i >= 0; i--)
             {
                 _tokensInOrder[i].Insert(_lines);
             }
-            _parser.Initialize(_lines);
+            _parser.Initialize(_lines, skipValidation: true);
         }
 
+        /// <summary>
+        /// Remove all tokens, propagate all changes at once, restore tokens, propagate changes again
+        /// </summary>
         [Benchmark]
         public void Update()
         {
@@ -91,25 +97,28 @@ namespace AnyText.PerformanceTests
             {
                 updates.Add(_tokensInOrder[i].AsRemoveTextEdit());
             }
-            _parser.Update(updates);
+            _parser.Update(updates, skipValidation: true);
             updates.Clear();
             for (int i = TokenChanges - 1; i >= 0; i--)
             {
                 updates.Add(_tokensInOrder[i].AsTextEdit());
             }
-            _parser.Update(updates);
+            _parser.Update(updates, skipValidation: true);
         }
 
+        /// <summary>
+        /// Remove all tokens, propagate removal after every change, restore each token and update again
+        /// </summary>
         [Benchmark]
         public void UpdateAlways()
         {
             for (int i = 0; i < TokenChanges; i++)
             {
-                _parser.Update(_tokensInOrder[i].AsRemoveTextEdit());
+                _parser.Update(_tokensInOrder[i].AsRemoveTextEdit(), skipValidation: true);
             }
             for (int i = TokenChanges - 1; i >= 0; i--)
             {
-                _parser.Update(_tokensInOrder[i].AsTextEdit());
+                _parser.Update(_tokensInOrder[i].AsTextEdit(), skipValidation: true);
             }
         }
     }
