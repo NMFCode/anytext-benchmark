@@ -1,0 +1,3 @@
+[submodule "NMF"]
+	path = NMF
+	url = git@github.com:NMFCode/NMF.git
