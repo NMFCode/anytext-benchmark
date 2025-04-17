@@ -1,0 +1,196 @@
+
+namespace Meta ( nmeta ) = http://nmf.codeplex.com/nmeta/
+{
+  # Represents a simple-valued attribute
+  class Attribute : TypedElement
+  {
+    # The default value for this attribute
+    DefaultValue : String [0..1]
+    # The type that declared this attribute
+    reference DeclaringType : StructuredType [0..1] opposite Attributes
+    # Gets or sets the attribute that is implemented by the current attribute
+    reference Refines : Attribute [0..1]
+  }
+  class AttributeConstraint
+  {
+    ordered Values : String [0..*]
+    reference DeclaringType : Class [1 ] opposite AttributeConstraints
+    reference Constrains : Attribute [1 ]
+  }
+  # Represents a group of instances with common properties like attributes or references
+  class Class : ReferenceType
+  {
+    IsAbstract : Boolean [1 ]
+    # Specifies whether the identifier is valid only in the scope of its container or on a global scope.
+    # This attribute is ignored when this class is not identified.
+    IdentifierScope : IdentifierScope [1 ]
+    reference BaseTypes : Class [0..*]
+    reference InstanceOf : Class [0..1]
+    # Gets or sets the attribute that will identify instances of this class
+    reference Identifier : Attribute [0..1]
+    composite reference AttributeConstraints : AttributeConstraint [0..*] opposite DeclaringType
+    composite reference ReferenceConstraints : ReferenceConstraint [0..*] opposite DeclaringType
+  }
+  # Represents a complex immutable data class
+  class DataType : StructuredType
+  {
+  }
+  class Enumeration : Type
+  {
+    IsFlagged : Boolean [1 ]
+    composite reference Literals : Literal [0..*] opposite Enumeration
+  }
+  # Represents an event
+  class Event : MetaElement
+  {
+    reference Type : DataType [0..1]
+    reference DeclaringType : ReferenceType [1 ] opposite Events
+  }
+  class Extension : ReferenceType
+  {
+    reference AdornedClass : Class [1 ]
+  }
+  class Literal : MetaElement
+  {
+    Value : Integer [0..1]
+    ordered reference Enumeration : Enumeration [0..1] opposite Literals
+  }
+  abstract class MetaElement : ModelElement
+  {
+    Name : String [1 ]
+    Summary : String [0..1]
+    Remarks : String [0..1]
+  }
+  class Model : ModelElement
+  {
+    ModelUri : Uri [0..1]
+    composite unique ordered reference RootElements : ModelElement [0..*]
+  }
+  abstract class ModelElement instance of Class
+  {
+    AbsoluteUri : Uri [1 ]
+    RelativeUri : Uri [1 ]
+    composite reference Extensions : ModelElementExtension [0..*] opposite ExtendedElement
+    reference Parent : ModelElement [0..1]
+  }
+  abstract class ModelElementExtension instance of Extension
+  {
+    reference ExtendedElement : ModelElement [1 ] opposite Extensions
+  }
+  class Namespace : MetaElement
+  {
+    Uri : Uri [0..1]
+    Prefix : String [0..1]
+    reference ParentNamespace : Namespace [0..1] opposite ChildNamespaces
+    composite reference ChildNamespaces : Namespace [0..*] opposite ParentNamespace
+    composite reference Types : Type [0..*] opposite Namespace
+  }
+  class Operation : TypedElement
+  {
+    composite ordered reference Parameters : Parameter [0..*] opposite Operation
+    reference DeclaringType : StructuredType [1 ] opposite Operations
+    reference Refines : Operation [0..1]
+  }
+  class Parameter : TypedElement
+  {
+    Direction : Direction [1 ]
+    reference Operation : Operation [1 ] opposite Parameters
+  }
+  class PrimitiveType : Type
+  {
+    SystemType : String [0..1]
+  }
+  class Reference : TypedElement
+  {
+    IsContainment : Boolean [1 ]
+    reference DeclaringType : ReferenceType [1 ] opposite References
+    reference Opposite : Reference [0..1] opposite Opposite
+    reference ReferenceType : ReferenceType [0..1] refines Type
+    # The reference that is refined by the current reference, only applicable if the reference is part of a class
+    reference Refines : Reference [0..1]
+    # The least common anchestor of an instance and its referenced element, if statically known
+    reference Anchor : Class [0..1]
+  }
+  class ReferenceConstraint
+  {
+    reference DeclaringType : Class [1 ] opposite ReferenceConstraints
+  }
+  abstract class ReferenceType : StructuredType
+  {
+    composite reference Events : Event [0..*] opposite DeclaringType
+    composite reference References : Reference [0..*] opposite DeclaringType
+  }
+  abstract class StructuredType : Type
+  {
+    composite reference Operations : Operation [0..*] opposite DeclaringType
+    composite reference Attributes : Attribute [0..*] opposite DeclaringType
+  }
+  abstract class Type : MetaElement
+  {
+    reference Namespace : Namespace [1 ] opposite Types
+  }
+  abstract class TypedElement : MetaElement
+  {
+    IsOrdered : Boolean [1 ]
+    IsUnique : Boolean [1 ]
+    LowerBound : Integer [1 ]
+    UpperBound : Integer [1 ]
+    reference Type : Type [1 ]
+  }
+  extension MappedType for Type
+  {
+    SystemType : SystemType [0..1]
+  }
+  extension AnnotationSet for ModelElement
+  {
+    composite unique ordered reference Annotations : AnnotationEntry [0..*]
+  }
+  class AnnotationEntry : ModelElement
+  {
+    Source : String [0..1]
+    ordered Details : String [0..*]
+    composite unique ordered reference Annotations : AnnotationEntry [0..*]
+  }
+  extension SerializationInformation for MetaElement
+  {
+    SerializationName : String [0..1]
+    IsDefault : Boolean [1 ]
+  }
+  # Denotes the direction of a parameter
+  enum Direction
+  {
+    # Denotes that the parameter is used as an input parameter
+    In
+    # Denotes that the parameter is used as an output parameter
+    Out = 1
+    # Denotes that the parameter is used both as input and output parameter
+    InOut = 2
+  }
+  enum IdentifierScope
+  {
+    # The identifier scope is inherited from the (first) base class that defines an identifier
+    Inherit
+    # The identifier has a local scope, i.e., the identifier identifies an element only in the scope of the parent element
+    Local = 1
+    # The identifier has a global scope, i.e., there is no other model element with the same identifier
+    Global = 2
+  }
+  primitive Boolean as System.Boolean
+  primitive Byte as System.Byte
+  primitive ByteArray as System.Byte[]
+  primitive Char as System.Char
+  primitive DateTime as DateTime
+  primitive Decimal as System.Decimal
+  primitive Double as System.Double
+  primitive Float as System.Single
+  primitive Guid as Guid
+  primitive Integer as System.Int32
+  primitive Long as System.Int64
+  primitive Object as System.Object
+  primitive String as System.String
+  primitive Short as System.Int16
+  primitive TimeSpan as TimeSpan
+  primitive Uri as Uri
+  primitive SystemType as System.Type
+
+}

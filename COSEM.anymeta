@@ -1,0 +1,1375 @@
+
+namespace COSEM ( cosem ) = foo:cosem
+{
+
+  namespace Datatypes ( data ) = data
+  {
+    class scal_unit_type
+    {
+      unique ordered scaler : nmeta.Integer [0..1]
+      unique ordered Unit : Units [0..1]
+    }
+    enum Units
+    {
+      year
+      month
+      week
+      day
+      hour
+      min
+      second
+      degree
+      degree_celsius
+      currency
+      metre
+      metre_per_second
+      cubic_metre
+      cubic_metre_per_hour
+      litre
+      kilogram
+      newton
+      newton_meter
+      pascal
+      bar
+      joule
+      joule_per_hour
+      watt
+      volt_ampere
+      var
+      watt_hour
+      volt_ampere_hour
+      var_hour
+      ampere
+      coulomb
+      volt
+      volt_per_metre
+      farad
+      ohm
+      weber
+      tesla
+      ampere_per_metre
+      henry
+      hertz
+      active_energy_meter_constant
+      reactive_energy_meter_constant
+      apparent_energy_meter_constant
+      volt_squared_hours
+      ampere_squared_hours
+      kilogram_per_second
+      siemens
+      kelvin
+      percentage
+      Ampere_hour
+      energy_per_volume
+      mole_percent
+      calorific_value
+      mass_density
+      pascal_second
+      Joule_kilogram
+      Signal_strength_milliwatt
+      Signal_strenght_microvolt
+      count
+    }
+    enum DisconnectControlState
+    {
+      Disconnected
+      Connected = 1
+      Ready_for_reconnection = 2
+    }
+    enum DisconnectControlTransition
+    {
+      remote_reconnect
+      remote_disconnect
+      manual_reconnect
+      manual_disconnect
+      local_disconnect
+      local_reconnect
+    }
+
+  }
+
+  namespace InterfaceClasses ( inter ) = interface
+  {
+    class S_FSK_PHY_MACsetup : Base
+    {
+    }
+    class S_FSKActiveinitiator : Base
+    {
+    }
+    class S_FSKMACsynctimeouts : Base
+    {
+    }
+    class S_FSKMACcounters : Base
+    {
+    }
+    class IEC61334_4_32LLCsetup : Base
+    {
+    }
+    class S_FSKReportingsystemlist : Base
+    {
+    }
+    class t61334_32_LLC_SSCS_setup : Base
+    {
+    }
+    class PRIME_NB_OFDM_PLC_Phy_layer_counters : Base
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MACsetup : Base
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MAC_counters : Base
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MAC_functionalparams : Base
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MACnetworkadmindata : Base
+    {
+    }
+    class PRIME_NB_OFDM_PLC_Application_identification : Base
+    {
+    }
+    class G3_PLC_MAC_layer_counters : Base
+    {
+    }
+    class G3_PLC_MAC_setup : Base
+    {
+    }
+    class G3_PLC_6LoWPAN : Base
+    {
+    }
+    class ZigBee_SAS_startup : Base
+    {
+    }
+    class ZigBee_SAS_join : Base
+    {
+    }
+    class ZigBee_SAS_APS_fragmentation : Base
+    {
+    }
+    class ZigBeenetworkcontrol : Base
+    {
+    }
+    class ZigBeetunnelsetup : Base
+    {
+    }
+    class TCP_UDPsetup : Base
+    {
+    }
+    class IPv4setup : Base
+    {
+    }
+    class IPv6setup : Base
+    {
+    }
+    class MACaddresssetup : Base
+    {
+    }
+    class PPPsetup : Base
+    {
+    }
+    class SMTPsetup : Base
+    {
+    }
+    class Modemconfiguration : Base
+    {
+    }
+    class Auto_answer : Base
+    {
+    }
+    class Auto_connect : Base
+    {
+    }
+    class GPRS_modem_setup : Base
+    {
+    }
+    class GSM_Diagnostic : Base
+    {
+    }
+    class IEC_twisted_pair_setup : Base
+    {
+    }
+    class M_Bus_slave_port_setup : Base
+    {
+    }
+    class M_Bus_client : Base
+    {
+    }
+    class Wireless_Mode_Q_Channel : Base
+    {
+    }
+    class M_Bus_master_port_setup : Base
+    {
+    }
+    class DLMS_COSEM_Server_M_Bus_port_setup : Base
+    {
+    }
+    class M_Bus_diagnostic : Base
+    {
+    }
+    class Scripttable : Base
+    {
+      unique ordered reference includes : Script [0..*]
+    }
+    class Script
+    {
+    }
+    class Schedule : Base
+    {
+    }
+    class Specialdaystable : Base
+    {
+    }
+    class Activitycalendar : Base
+    {
+    }
+    class Registermonitor : Base
+    {
+    }
+    class Singleactionschedule : Base
+    {
+    }
+    class Parametermonitor : Base
+    {
+    }
+    class Sensormanager : Base
+    {
+    }
+    class Arbitrator : Base
+    {
+    }
+    class DisconnectControl : Base
+    {
+      unique ordered state : data.DisconnectControlState [0..1]
+      unique ordered transition : data.DisconnectControlTransition [0..1]
+    }
+    class Limiter : Base
+    {
+    }
+    class Account : Base
+    {
+    }
+    class Credit : Base
+    {
+    }
+    class Charge : Base
+    {
+    }
+    class Tokengateway : Base
+    {
+    }
+    class IEC_local_port_setup : Base
+    {
+    }
+    class IEC_HDLC_setup : Base
+    {
+    }
+    class IEC_8802_2_LLC_Type_1 : Base
+    {
+    }
+    class IEC_8802_2_LLC_G3_NB : Base
+    {
+    }
+    class IEC8802_2LLCType3 : Base
+    {
+    }
+    class Register : Data
+    {
+      unique ordered value : nmeta.Float [0..1]
+      unique ordered reference scaler_unit : data.scal_unit_type [1 ]
+    }
+    class SAPAssignment : Base
+    {
+      unique ordered reference ldnname : LogicalDeviceName [0..1]
+    }
+    class AssociationLN : Base
+    {
+      unique ordered reference AA : ApplicationAssociation [1 ]
+    }
+    class Data : Base
+    {
+    }
+    class ExtendedRegister : Register
+    {
+    }
+    class DemandRegister : ExtendedRegister
+    {
+      unique ordered number_of_periods : nmeta.Integer [0..1]
+      unique ordered period : nmeta.Integer [0..1]
+    }
+    class RegisterActivation : Base
+    {
+    }
+    class Profilegeneric : Base
+    {
+    }
+    class Base
+    {
+      unique ordered logical_name : nmeta.String [0..1]
+      unique ordered OBIScode : nmeta.String [0..1]
+    }
+    class Utilitytables : Base
+    {
+    }
+    class Registertable : Base
+    {
+    }
+    class Compactdata : Base
+    {
+      unique ordered compact_buffer : nmeta.String [0..1]
+      unique ordered template_id : nmeta.String [0..1]
+      unique ordered template_description : nmeta.String [0..1]
+    }
+    class Statusmapping : Base
+    {
+    }
+    class AssociationSN : Base
+    {
+    }
+    class Imagetransfer : Base
+    {
+    }
+    class Dataprotection : Base
+    {
+    }
+    class Pushsetup : Base
+    {
+    }
+    class Securitysetup : Base
+    {
+    }
+    class Clock : Base
+    {
+      unique ordered time : nmeta.String [0..1]
+      unique ordered time_zone : nmeta.Long [0..720]
+      unique ordered status : nmeta.String [0..1]
+      unique ordered daylight_savings_begin : nmeta.String [0..1]
+      unique ordered daylight_savings_end : nmeta.String [0..1]
+      unique ordered daylight_savings_deviation : nmeta.Integer [0..120]
+      unique ordered daylight_savings_enabled : nmeta.Boolean [0..1]
+    }
+    class ApplicationAssociation
+    {
+    }
+
+  }
+
+  namespace COSEMObjects ( objects ) = objects
+  {
+    class ProgramEntries : inter.Data
+    {
+      unique ordered ActiveFirmwareIdentifier : nmeta.String [0..1]
+      unique ordered ActiveFirmwareVersion : nmeta.String [0..1]
+      unique ordered ActiveFirmwareSignature : nmeta.String [0..1]
+    }
+    class BillingPeriodValues : inter.Data
+    {
+      unique ordered BillingPeriodCounter : nmeta.Integer [0..1]
+      unique ordered NumberAvailableBillingPeriods : nmeta.Integer [0..1]
+      unique ordered TimestampRecentBillingPeriod : nmeta.String [0..1]
+    }
+    class TimeEntries : inter.Data
+    {
+      unique ordered LocalTime : nmeta.String [0..1]
+      unique ordered LocalDate : nmeta.String [0..1]
+    }
+    class ClockObject : inter.Clock
+    {
+      unique ordered Time : nmeta.String [0..1]
+    }
+    class UNIXClock : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class ModemConfigurationObject : inter.Modemconfiguration
+    {
+    }
+    class AutoConnectObject : inter.Auto_connect
+    {
+      unique ordered Connection : nmeta.Boolean [0..1]
+    }
+    class AutoAnswerObject : inter.Auto_answer
+    {
+      unique ordered Answer : nmeta.Boolean [0..1]
+    }
+    class ScriptTable : inter.Scripttable
+    {
+      unique ordered reference globalMeterReset : GlobalMeterReset [0..1]
+      unique ordered reference MDIReset : MDIReset [0..1]
+      unique ordered reference Tariffication : Tariffication [0..1]
+      unique ordered reference AcitvateTest : ActivateTestMode [0..1]
+      unique ordered reference ActivateNormal : ActivateNormalMode [0..1]
+      unique ordered reference SetOutput : SetOutputSignal [0..1]
+      unique ordered reference SwitchOptical : SwitchOpticalTestOutput [0..1]
+      unique ordered reference PowerQuality : PowerQualityMeasurementManagement [0..1]
+      unique ordered reference Disconnect : DisconnectControl [0..1]
+      unique ordered reference Image : ImageActivation [0..1]
+      unique ordered reference Push : Push [0..1]
+      unique ordered reference Broadcast : Broadcast [0..1]
+    }
+    class GlobalMeterReset : inter.Scripttable
+    {
+    }
+    class MDIReset : inter.Scripttable
+    {
+    }
+    class Tariffication : inter.Scripttable
+    {
+    }
+    class ActivateTestMode : inter.Scripttable
+    {
+    }
+    class ActivateNormalMode : inter.Scripttable
+    {
+    }
+    class SetOutputSignal : inter.Scripttable
+    {
+    }
+    class SwitchOpticalTestOutput : inter.Scripttable
+    {
+    }
+    class PowerQualityMeasurementManagement : inter.Scripttable
+    {
+    }
+    class DisconnectControl : inter.Scripttable
+    {
+    }
+    class ImageActivation : inter.Scripttable
+    {
+    }
+    class Push : inter.Scripttable
+    {
+    }
+    class Broadcast : inter.Scripttable
+    {
+    }
+    class SpecialDays : inter.Specialdaystable
+    {
+    }
+    class ScheduleObject : inter.Schedule
+    {
+    }
+    class ActivityCalendarObject : inter.Activitycalendar
+    {
+    }
+    class RegisterActivationObject : inter.RegisterActivation
+    {
+    }
+    class SingleActionScheduleObject : inter.Singleactionschedule
+    {
+      unique ordered reference disconnect : DisconnectControlSchedule [0..1]
+      unique ordered reference BillingPeriodEnd : EndOfBillingPeriodSchedule [0..1]
+      unique ordered reference Image : ImageActivationSchedule [0..1]
+      unique ordered reference Output : OutputControlSchedule [0..1]
+      unique ordered reference Push : PushSchedule [0..1]
+    }
+    class DisconnectControlSchedule : inter.Singleactionschedule
+    {
+    }
+    class EndOfBillingPeriodSchedule : inter.Singleactionschedule
+    {
+    }
+    class ImageActivationSchedule : inter.Singleactionschedule
+    {
+    }
+    class OutputControlSchedule : inter.Singleactionschedule
+    {
+    }
+    class PushSchedule : inter.Singleactionschedule
+    {
+    }
+    class RegisterMonitorObject : inter.Registermonitor
+    {
+    }
+    class AlarmMonitor : inter.Registermonitor
+    {
+    }
+    class ParameterMonitorObject : inter.Parametermonitor
+    {
+    }
+    class LimiterObject : inter.Limiter
+    {
+    }
+    class AccountObject : inter.Account
+    {
+    }
+    class CreditObject : inter.Credit
+    {
+    }
+    class ChargeObject : inter.Charge
+    {
+    }
+    class TokenGatewayObject : inter.Tokengateway
+    {
+    }
+    class MaxCreditLimit : inter.Data
+    {
+      unique ordered value : nmeta.Double [0..1]
+    }
+    class MaxVendLimit : inter.Data
+    {
+      unique ordered value : nmeta.Double [0..1]
+    }
+    class IECOpticalPortSetup : inter.IEC_local_port_setup
+    {
+    }
+    class IECElectricalPortSetup : inter.IEC_local_port_setup
+    {
+    }
+    class StandardReadout : inter.Profilegeneric
+    {
+      unique ordered GeneralLocalPortReadout : nmeta.String [0..1]
+      unique ordered GeneralDisplayReadout : nmeta.String [0..1]
+      unique ordered AlternateDisplayReadout : nmeta.String [0..1]
+      unique ordered ServiceDisplayReadout : nmeta.String [0..1]
+      unique ordered ListConfigMeterData : nmeta.String [0..1]
+      unique ordered AdditionalReadout : nmeta.String [0..1]
+    }
+    class StandardReadoutParam : inter.Data
+    {
+    }
+    class IECHDLCSetupObject : inter.IEC_HDLC_setup
+    {
+    }
+    class IECTwistedPairSetupObject : inter.IEC_twisted_pair_setup
+    {
+    }
+    class IECTwistedPairMACAddressSetup : inter.MACaddresssetup
+    {
+    }
+    class IECTwistedPairFatalErrorRegister : inter.Data
+    {
+    }
+    class IEC62056_3_1ShortReadout : inter.Profilegeneric
+    {
+    }
+    class IEC62056_3_1LongReadout : inter.Profilegeneric
+    {
+    }
+    class IEC_62056_3_1AlternateReadoutProfile : inter.Profilegeneric
+    {
+    }
+    class M_BusSlavePortSetupObject : inter.M_Bus_slave_port_setup
+    {
+    }
+    class M_BusClientObject : inter.M_Bus_client
+    {
+    }
+    class M_BusValue : inter.ExtendedRegister
+    {
+    }
+    class M_BusProfileGeneric : inter.Profilegeneric
+    {
+    }
+    class M_BusDisconnectControl : inter.DisconnectControl
+    {
+    }
+    class M_BusControlLog : inter.Profilegeneric
+    {
+    }
+    class M_BusMasterPortSetupObject : inter.M_Bus_master_port_setup
+    {
+    }
+    class WirelessModeQChannelObject : inter.Wireless_Mode_Q_Channel
+    {
+    }
+    class DLMS_COSEMServerM_BusPortSetupObject : inter.DLMS_COSEM_Server_M_Bus_port_setup
+    {
+    }
+    class M_BusDiagnosticObject : inter.M_Bus_diagnostic
+    {
+    }
+    class TCP_UDPSetupObject : inter.TCP_UDPsetup
+    {
+    }
+    class IPv4SetupObject : inter.IPv4setup
+    {
+    }
+    class MACAddressSetupObject : inter.MACaddresssetup
+    {
+    }
+    class PPPSetupObject : inter.PPPsetup
+    {
+    }
+    class GPRSModemSetupObject : inter.GPRS_modem_setup
+    {
+    }
+    class SMTPSetupObject : inter.SMTPsetup
+    {
+    }
+    class GSMDiagnosticObject : inter.GSM_Diagnostic
+    {
+    }
+    class IPv6SetupObject : inter.IPv6setup
+    {
+    }
+    class PushSetupObject : inter.Pushsetup
+    {
+    }
+    class S_FSKPhy_MACSetupObject : inter.S_FSK_PHY_MACsetup
+    {
+    }
+    class S_FSKActiveInitiatorObject : inter.S_FSKActiveinitiator
+    {
+    }
+    class S_FSKMACSynchronizationTimeouts : inter.S_FSKMACsynctimeouts
+    {
+    }
+    class S_FSKMACCountersObject : inter.S_FSKMACcounters
+    {
+    }
+    class IEC61334_4_32LLCSetupObject : inter.IEC61334_4_32LLCsetup
+    {
+    }
+    class S_FSKReportingSystemListObject : inter.S_FSKReportingsystemlist
+    {
+    }
+    class ISO_IEC8802_2LLCType1SetupObject : inter.IEC_8802_2_LLC_Type_1
+    {
+    }
+    class ISO_IEC8802_2LLCType2Setup : inter.IEC_8802_2_LLC_G3_NB
+    {
+    }
+    class ISO_IEC8802_2LLCType3Setup : inter.IEC8802_2LLCType3
+    {
+    }
+    class t61334_4_32LLCSSCSsetupobject : inter.t61334_32_LLC_SSCS_setup
+    {
+    }
+    class PRIME_NB_OFDM_PLC_Physical_layer_counters_object : inter.PRIME_NB_OFDM_PLC_Phy_layer_counters
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MAC_setup_object : inter.PRIME_NB_OFDM_PLC_MACsetup
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MAC_functional_parameters_object : inter.PRIME_NB_OFDM_PLC_MAC_functionalparams
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MAC_counters_object : inter.PRIME_NB_OFDM_PLC_MAC_counters
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MAC_network_administration_data_object : inter.PRIME_NB_OFDM_PLC_MACnetworkadmindata
+    {
+    }
+    class PRIME_NB_OFDM_PLC_MAC_address_setup : inter.MACaddresssetup
+    {
+    }
+    class PRIME_NB_OFDM_PLC_Application_identification_object : inter.PRIME_NB_OFDM_PLC_Application_identification
+    {
+    }
+    class G3_PLC_MAC_layer_counters_object : inter.G3_PLC_MAC_layer_counters
+    {
+    }
+    class G3_PLC_MAC_setup_object : inter.G3_PLC_MAC_setup
+    {
+    }
+    class G3_PLC_6LoWPAN_adaptation_layer_setup_object : inter.G3_PLC_6LoWPAN
+    {
+    }
+    class ZigBee_SAS_startup_object : inter.ZigBee_SAS_startup
+    {
+    }
+    class ZigBee_SAS_join_object : inter.ZigBee_SAS_join
+    {
+    }
+    class ZigBee_SAS_APS_fragmentation_object : inter.ZigBee_SAS_APS_fragmentation
+    {
+    }
+    class ZigBee_network_control_object : inter.ZigBeenetworkcontrol
+    {
+    }
+    class ZigBee_tunnel_setup_object : inter.ZigBeetunnelsetup
+    {
+    }
+    class CurrentAssociation : inter.AssociationLN
+    {
+    }
+    class SAPAssignmentCurrent : inter.SAPAssignment
+    {
+    }
+    class SecuritySetupObject : inter.Securitysetup
+    {
+    }
+    class InvocationCounter : inter.Data
+    {
+      unique ordered value : nmeta.Integer [0..1]
+    }
+    class DataProtectionObject : inter.Dataprotection
+    {
+    }
+    class ImageTransferObject : inter.Imagetransfer
+    {
+    }
+    class UtilitiesTableObject : inter.Utilitytables
+    {
+      unique ordered Standard : nmeta.String [0..1]
+      unique ordered Manufacturer : nmeta.String [0..1]
+      unique ordered StdPending : nmeta.String [0..1]
+      unique ordered MfgPending : nmeta.String [0..1]
+    }
+    class CompactDataObject : inter.Compactdata
+    {
+    }
+    class DeviceID : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class MeteringPointID : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class ParameterChangesObject : inter.Data
+    {
+      unique ordered NumberConfigProgramChanges : nmeta.Integer [0..1]
+      unique ordered DateLastConfigChange : nmeta.DateTime [0..1]
+      unique ordered DateLastSwitchChange : nmeta.DateTime [0..1]
+      unique ordered DateLastRippleControlChange : nmeta.DateTime [0..1]
+      unique ordered StatusSecuritySwitches : nmeta.String [0..1]
+      unique ordered DateLastCalibration : nmeta.DateTime [0..1]
+      unique ordered DateNextConfig : nmeta.DateTime [0..1]
+      unique ordered DateActivationPassivCalendar : nmeta.DateTime [0..1]
+      unique ordered NumberProtectedConfigChanges : nmeta.Integer [0..1]
+      unique ordered DateLastProtectedConfigChange : nmeta.DateTime [0..1]
+      unique ordered DateLastClockSynch : nmeta.DateTime [0..1]
+      unique ordered DateLastFirmwareActivation : nmeta.DateTime [0..1]
+    }
+    class I_O_control_signal_objects_contentsmanufacturerspecific : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class I_O_control_signal_objects_contentsmappedtoareferencetable : inter.Statusmapping
+    {
+    }
+    class I_O_control_signal_objects_global : inter.Profilegeneric
+    {
+    }
+    class Disconnectcontrolobject : inter.DisconnectControl
+    {
+    }
+    class GeneralpurposeArbitrator : inter.Arbitrator
+    {
+    }
+    class IOControlSignalsManufacturer : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class IOControlSignalsMapped : inter.Statusmapping
+    {
+    }
+    class IOControlSignalsGlobal : inter.Profilegeneric
+    {
+    }
+    class DisconnectControlObject : inter.DisconnectControl
+    {
+    }
+    class GeneralPurposeArbitrator : inter.Arbitrator
+    {
+    }
+    class InternalControlManu : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class InternalControlMapped : inter.Statusmapping
+    {
+    }
+    class InternalControlGlobal : inter.Profilegeneric
+    {
+    }
+    class InternalOperatingStatusManu : inter.Data
+    {
+    }
+    class InternalOperatingStatusMapped : inter.Statusmapping
+    {
+    }
+    class InternalOperatingStatusGlobal : inter.Registertable
+    {
+    }
+    class StatusRegisterManu : inter.Data
+    {
+    }
+    class StatusRegisterMapped : inter.Statusmapping
+    {
+    }
+    class ErrorRegisterObject : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class ErrorProfileObject : inter.Profilegeneric
+    {
+    }
+    class ErrorTableObject : inter.Registertable
+    {
+    }
+    class AlarmRegisterObject : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class AlarmFilterObject : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class AlarmDescriptorObject : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class EventLog : inter.Profilegeneric
+    {
+    }
+    class ElectricityID : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class ElectricityProgramEntries : inter.Data
+    {
+      unique ordered Activefirmwareidentifier : nmeta.String [0..1]
+      unique ordered Parameterrecordnumber : nmeta.Integer [0..1]
+      unique ordered Timeswitchprogramnumber : nmeta.Integer [0..1]
+      unique ordered RCRprogramnumber : nmeta.Integer [0..1]
+      unique ordered MeterconnectiondiagramID : nmeta.String [0..1]
+      unique ordered Passivecalendarname : nmeta.String [0..1]
+      unique ordered Activefirmwaresignature : nmeta.String [0..1]
+    }
+    class OutputPulseValues_constants : inter.Data
+    {
+      unique ordered ActiveenergymetrologicalLED : nmeta.Double [0..1]
+      unique ordered ReactiveenergymetrologicalLED : nmeta.Double [0..1]
+      unique ordered ApparentenergymetrologicalLED : nmeta.Double [0..1]
+      unique ordered Activeenergyoutputpulse : nmeta.Double [0..1]
+      unique ordered Reactiveenergyoutputpulse : nmeta.Double [0..1]
+      unique ordered Apparentenergyoutputpulse : nmeta.Double [0..1]
+      unique ordered Volt_squaredhoursmetrologicalLED : nmeta.Double [0..1]
+      unique ordered Ampere_squaredhoursmetrologicalLED : nmeta.Double [0..1]
+      unique ordered Volt_squaredhoursoutputpulse : nmeta.Double [0..1]
+      unique ordered Ampere_squaredhoursoutputpulse : nmeta.Double [0..1]
+    }
+    class ReadingFactorAndCT_VTratio : inter.Data
+    {
+      unique ordered Readingfactorforpower : nmeta.Double [0..1]
+      unique ordered Readingfactorforenergy : nmeta.Double [0..1]
+      unique ordered Transformerratio_currentzähler : nmeta.Integer [0..1]
+      unique ordered Transformerratio_voltagezähler : nmeta.Integer [0..1]
+      unique ordered Overalltransformerratiozähler : nmeta.Integer [0..1]
+      unique ordered Transformerratio_currentnenner : nmeta.Integer [0..1]
+      unique ordered Transformerratio_voltagenenner : nmeta.Integer [0..1]
+      unique ordered Overalltransformer_rationenner : nmeta.Integer [0..1]
+    }
+    class ElectricityNominalValues : inter.Data
+    {
+      unique ordered Voltage : nmeta.Double [0..1]
+      unique ordered Nominalcurrent : nmeta.Double [0..1]
+      unique ordered Frequency : nmeta.Double [0..1]
+      unique ordered Maximumcurrent : nmeta.Double [0..1]
+      unique ordered Reference_voltage_for_power_quality_measurement : nmeta.Double [0..1]
+      unique ordered Reference_voltage_for_aux_power_supply : nmeta.Double [0..1]
+    }
+    class InputPulseValuesOrConstants : inter.Data
+    {
+      unique ordered ActiveEnergy : nmeta.Double [0..1]
+      unique ordered Reactive_energy : nmeta.Double [0..1]
+      unique ordered Apparent_energy : nmeta.Double [0..1]
+      unique ordered Volt_squared_hours : nmeta.Double [0..1]
+      unique ordered Ampere_squared_hours : nmeta.Double [0..1]
+      unique ordered Unitless_quantities : nmeta.Double [0..1]
+      unique ordered Active_energy_export : nmeta.Double [0..1]
+      unique ordered Reactive_energy_export : nmeta.Double [0..1]
+      unique ordered Apparent_energy_export : nmeta.Double [0..1]
+    }
+    class MeasurementPeriod_recordingInterval_billingPeriodDuration : inter.Data
+    {
+      unique ordered Measurement_period_1_for_averaging_scheme_1 : nmeta.String [0..1]
+      unique ordered Measurement_period_2_for_averagingscheme_2 : nmeta.String [0..1]
+      unique ordered Measurement_period_3_for_instantaneous_value : nmeta.String [0..1]
+      unique ordered Measurement_period_4_for_test_value : nmeta.String [0..1]
+      unique ordered Recording_interval_1_for_loadprofile : nmeta.String [0..1]
+      unique ordered Recording_interval_2_for_loadprofile : nmeta.String [0..1]
+      unique ordered Billingperiod : nmeta.String [0..1]
+    }
+    class ElectricityTimeEntries : inter.Data
+    {
+      unique ordered Time_expired_since_last_end_of_billing_period : nmeta.String [0..1]
+      unique ordered Localtime : nmeta.String [0..1]
+      unique ordered Localdate : nmeta.String [0..1]
+      unique ordered Weekday : nmeta.String [0..1]
+      unique ordered Timeoflastreset : nmeta.String [0..1]
+      unique ordered Dateoflastreset : nmeta.String [0..1]
+      unique ordered Outputpulseduration : nmeta.String [0..1]
+      unique ordered Clocksynchronizationwindow : nmeta.String [0..1]
+      unique ordered Clock_synchronization_method : nmeta.String [0..1]
+      unique ordered Clock_time_shift_limit : nmeta.String [0..1]
+      unique ordered Billing_period_reset_lockout_time : nmeta.String [0..1]
+    }
+    class Coefficients : inter.Data
+    {
+      unique ordered Transformer_magnetic_losses : nmeta.Double [0..1]
+      unique ordered Transformer_iron_losses : nmeta.Double [0..1]
+      unique ordered Line_resistance_losses : nmeta.Double [0..1]
+      unique ordered Line_reactance_losses : nmeta.Double [0..1]
+    }
+    class MeasurementMethods : inter.Data
+    {
+      unique ordered Algorithm_for_active_power_measurement : nmeta.String [0..1]
+      unique ordered Algorithm_for_active_energy_management : nmeta.String [0..1]
+      unique ordered Algorithm_for_reactive_power_measurement : nmeta.String [0..1]
+      unique ordered Algorithm_for_reactive_energy_measurement : nmeta.String [0..1]
+      unique ordered Algorithm_for_apparent_power_measurement : nmeta.String [0..1]
+      unique ordered Algorithm_for_apparent_energy_measurement : nmeta.String [0..1]
+      unique ordered Algorithm_for_power_factor_calculation : nmeta.String [0..1]
+    }
+    class ElectricityMeteringPointID : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class ElectricityRelatedStatusData : inter.Data
+    {
+      unique ordered Status_information_missing_voltage : nmeta.String [0..1]
+      unique ordered Status_information_missing_current : nmeta.String [0..1]
+      unique ordered Status_information_current_without_voltage : nmeta.String [0..1]
+      unique ordered Status_information_auxiliary_power_supply : nmeta.String [0..1]
+    }
+    class ElectricityRelatedStatusDataMapped : inter.Statusmapping
+    {
+    }
+    class BatteryEntries : inter.Data
+    {
+      unique ordered Battery_use_time_counter : nmeta.Integer [0..1]
+      unique ordered Battery_charge_display : nmeta.String [0..1]
+      unique ordered Date_of_next_battery_change : nmeta.String [0..1]
+      unique ordered Battery_voltage : nmeta.Double [0..1]
+      unique ordered Battery_initial_capacity : nmeta.Double [0..1]
+      unique ordered Battery_installation_date_and_time : nmeta.String [0..1]
+      unique ordered Battery_estimated_remaining_use_time : nmeta.String [0..1]
+      unique ordered Aux_supply_use_time_counter : nmeta.Integer [0..1]
+      unique ordered Aux_voltage : nmeta.Double [0..1]
+    }
+    class PowerFailureMonitoring : inter.Data
+    {
+      unique ordered FailuresAllPhases : nmeta.Integer [0..1]
+      unique ordered FailuresL1 : nmeta.Integer [0..1]
+      unique ordered FailuresL2 : nmeta.Integer [0..1]
+      unique ordered FailuresL3 : nmeta.Integer [0..1]
+      unique ordered FailuresAny : nmeta.Integer [0..1]
+      unique ordered Auxiliarysupply : nmeta.String [0..1]
+      unique ordered LongFailsAll : nmeta.Integer [0..1]
+      unique ordered LongFailsL1 : nmeta.Integer [0..1]
+      unique ordered LongFailsL2 : nmeta.Integer [0..1]
+      unique ordered LongFailsL3 : nmeta.Integer [0..1]
+      unique ordered LongFailsAny : nmeta.Integer [0..1]
+      unique ordered TimeAll : nmeta.String [0..1]
+      unique ordered TimeL1 : nmeta.String [0..1]
+      unique ordered TimeL2 : nmeta.String [0..1]
+      unique ordered TimeL3 : nmeta.String [0..1]
+      unique ordered TimeAny : nmeta.String [0..1]
+      unique ordered DurationAll : nmeta.Integer [0..1]
+      unique ordered DurationL1 : nmeta.Integer [0..1]
+      unique ordered DurationL2 : nmeta.Integer [0..1]
+      unique ordered DurationL3 : nmeta.Integer [0..1]
+      unique ordered DurationAny : nmeta.Integer [0..1]
+      unique ordered Time_threshold_long_powerfailure : nmeta.Integer [0..1]
+    }
+    class OperatingTime : inter.Data
+    {
+      unique ordered Timeofoperation : nmeta.String [0..1]
+    }
+    class EnvironmentRelatedParameters : inter.Register
+    {
+      unique ordered ambient_temperature : nmeta.Double [0..1]
+      unique ordered Ambient_pressure : nmeta.Double [0..1]
+      unique ordered Relative_humidity : nmeta.Double [0..1]
+    }
+    class StatusRegister : inter.Register
+    {
+    }
+    class EventCode : inter.Data
+    {
+      unique ordered event_code_object : nmeta.String [0..1]
+    }
+    class CommunicationPortLogParameters : inter.Data
+    {
+      unique ordered Reserved : nmeta.String [0..1]
+      unique ordered Number_connections : nmeta.String [0..1]
+      unique ordered Communication_port_parameter : nmeta.String [0..1]
+      unique ordered GSM_field_strength : nmeta.String [0..1]
+      unique ordered Communicationaddress : nmeta.String [0..1]
+    }
+    class ConsumerMessage : inter.Data
+    {
+      unique ordered Consumer_message_via_local_consumer_information_port : nmeta.String [0..1]
+      unique ordered Consumer_message_via_meter_display : nmeta.String [0..1]
+    }
+    class CurrentlyActiveTariff : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class EventCounterObject : inter.Data
+    {
+      unique ordered value : nmeta.Integer [0..1]
+    }
+    class ProfileEntryDigitalSignatureObject : inter.Data
+    {
+      unique ordered value : nmeta.String [0..1]
+    }
+    class MeterTemperEventRelatedObject : inter.Data
+    {
+      unique ordered Meter_open_event_counter : nmeta.Integer [0..1]
+      unique ordered Meter_open_event_timestamp : nmeta.String [0..1]
+      unique ordered Meter_open_event_duration : nmeta.Integer [0..1]
+      unique ordered Meter_open_event_cumulative_duration : nmeta.Integer [0..1]
+      unique ordered Terminal_cover_open_event_counter : nmeta.Integer [0..1]
+      unique ordered Terminal_cover_open_event_time : nmeta.String [0..1]
+      unique ordered Terminal_cover_open_event_duration : nmeta.Integer [0..1]
+      unique ordered Terminal_cover_open_event_cumulative_duration : nmeta.Integer [0..1]
+      unique ordered Tilt_event_counter : nmeta.Integer [0..1]
+      unique ordered Tilt_event_time : nmeta.String [0..1]
+      unique ordered Tilt_event_duration : nmeta.Integer [0..1]
+      unique ordered Tilt_event_cumulative_duration : nmeta.Integer [0..1]
+      unique ordered Strong_DC_magnetic_field_event_counter : nmeta.Integer [0..1]
+      unique ordered Strong_DC_magnetic_field_event_time : nmeta.String [0..1]
+      unique ordered Strong_DC_magnetic_field_event_duration : nmeta.Integer [0..1]
+      unique ordered Strong_DC_magnetic_field_event_cumulative_duration : nmeta.Integer [0..1]
+      unique ordered Supply_control_switch_event_counter : nmeta.Integer [0..1]
+      unique ordered Supply_control_switch_event_time : nmeta.String [0..1]
+      unique ordered Supply_control_switch_event_duration : nmeta.Integer [0..1]
+      unique ordered Supply_control_switch_event_cumulative_duration : nmeta.Integer [0..1]
+      unique ordered Metrology_tamper_event_counter : nmeta.Integer [0..1]
+      unique ordered Metrology_tamper_event_time : nmeta.String [0..1]
+      unique ordered Metrology_tamper_event_duration : nmeta.Integer [0..1]
+      unique ordered Metrology_tamper_event_cumulative_duration : nmeta.Integer [0..1]
+      unique ordered Communication_tamper_event_counter : nmeta.Integer [0..1]
+      unique ordered Communication_tamper_event_time : nmeta.String [0..1]
+      unique ordered Communication_tamper_event_duration : nmeta.Integer [0..1]
+      unique ordered Communication_tamper_event_cumulative_duration : nmeta.Integer [0..1]
+      unique ordered Manufacturer_specific : nmeta.String [0..1]
+    }
+    class ElectricityValues : inter.Data
+    {
+      unique ordered ActivePowerpL1 : nmeta.Double [0..1]
+      unique ordered ActivePowerpall : nmeta.Double [0..1]
+      unique ordered ActivePowerpL2 : nmeta.Double [0..1]
+      unique ordered ActivePowerpL3 : nmeta.Double [0..1]
+      unique ordered ActivePowermL2 : nmeta.Double [0..1]
+      unique ordered ActivePowermL1 : nmeta.Double [0..1]
+      unique ordered ActivePowermL3 : nmeta.Double [0..1]
+      unique ordered ActivePowermall : nmeta.Double [0..1]
+      unique ordered ReactivePowerpL1 : nmeta.Double [0..1]
+      unique ordered ReactivePowerpL2 : nmeta.Double [0..1]
+      unique ordered ReactivePowerpL3 : nmeta.Double [0..1]
+      unique ordered ReactivePowerpall : nmeta.Double [0..1]
+      unique ordered ReactivePowermL1 : nmeta.Double [0..1]
+      unique ordered ReactivePowermL2 : nmeta.Double [0..1]
+      unique ordered ReactivePowermL3 : nmeta.Double [0..1]
+      unique ordered ReactivePowermall : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIL1 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIL2 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIL3 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIall : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIIL1 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIIL2 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIIL3 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIIall : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIIIL1 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIIIL2 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIIIL3 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIIIall : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIVL1 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIVL2 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIVL3 : nmeta.Double [0..1]
+      unique ordered ReactivePowerQIVall : nmeta.Double [0..1]
+      unique ordered ApparentPowerpL1 : nmeta.Double [0..1]
+      unique ordered ApparentPowerpL2 : nmeta.Double [0..1]
+      unique ordered ApparentPowerpL3 : nmeta.Double [0..1]
+      unique ordered ApparentPowerpAll : nmeta.Double [0..1]
+      unique ordered ApparentPowermL1 : nmeta.Double [0..1]
+      unique ordered ApparentPowermL2 : nmeta.Double [0..1]
+      unique ordered ApparentPowermL3 : nmeta.Double [0..1]
+      unique ordered ApparentPowermAll : nmeta.Double [0..1]
+      unique ordered CurrentL1 : nmeta.Double [0..1]
+      unique ordered CurrentL2 : nmeta.Double [0..1]
+      unique ordered CurrentL3 : nmeta.Double [0..1]
+      unique ordered CurrentAll : nmeta.Double [0..1]
+      unique ordered VoltageL1 : nmeta.Double [0..1]
+      unique ordered VoltageL2 : nmeta.Double [0..1]
+      unique ordered VoltageL3 : nmeta.Double [0..1]
+      unique ordered VoltageAll : nmeta.Double [0..1]
+      unique ordered PowerFactorL1 : nmeta.Double [0..1]
+      unique ordered PowerFactorL2 : nmeta.Double [0..1]
+      unique ordered PowerFactorL3 : nmeta.Double [0..1]
+      unique ordered PowerFactorAll : nmeta.Double [0..1]
+      unique ordered SupplyFrequencyL1 : nmeta.Double [0..1]
+      unique ordered SupplyFrequencyL2 : nmeta.Double [0..1]
+      unique ordered SupplyFrequencyL3 : nmeta.Double [0..1]
+      unique ordered SupplyFrequencyAll : nmeta.Double [0..1]
+      unique ordered ActivePowerAbsPL1 : nmeta.Double [0..1]
+      unique ordered ActivePowerAbsPL2 : nmeta.Double [0..1]
+      unique ordered ActivePowerAbsPL3 : nmeta.Double [0..1]
+      unique ordered ActivePowerAbsPAll : nmeta.Double [0..1]
+      unique ordered ActivePowerAbsML1 : nmeta.Double [0..1]
+      unique ordered ActivePowerAbsML2 : nmeta.Double [0..1]
+      unique ordered ActivePowerAbsML3 : nmeta.Double [0..1]
+      unique ordered ActivePowerAbsMAll : nmeta.Double [0..1]
+      unique ordered ActivePowerQIL1 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIL2 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIL3 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIall : nmeta.Double [0..1]
+      unique ordered ActivePowerQIIL1 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIIL2 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIIL3 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIIall : nmeta.Double [0..1]
+      unique ordered ActivePowerQIIIL1 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIIIL2 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIIIL3 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIIIall : nmeta.Double [0..1]
+      unique ordered ActivePowerQIVL1 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIVL2 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIVL3 : nmeta.Double [0..1]
+      unique ordered ActivePowerQIVall : nmeta.Double [0..1]
+      unique ordered Angles : nmeta.Double [0..1]
+      unique ordered Pulses : nmeta.Integer [0..1]
+      unique ordered Ampere_squaredHours : nmeta.Double [0..1]
+      unique ordered Volt_squaredHours : nmeta.Double [0..1]
+      unique ordered NeutralCurrent : nmeta.Double [0..1]
+      unique ordered NeutralVoltage : nmeta.Double [0..1]
+    }
+    class MeasurementValues : inter.Data
+    {
+      unique ordered Billing_period_average : nmeta.Double [0..1]
+      unique ordered Cumulative_minimum : nmeta.Double [0..1]
+      unique ordered Cumulative_maximum : nmeta.Double [0..1]
+      unique ordered Minimum : nmeta.Double [0..1]
+      unique ordered Current_average : nmeta.Double [0..1]
+      unique ordered Last_average : nmeta.Double [0..1]
+      unique ordered Maximum : nmeta.Double [0..1]
+      unique ordered Instantaneous_value : nmeta.Double [0..1]
+      unique ordered Time_integral : nmeta.Double [0..1]
+      unique ordered Under_limit_threshold : nmeta.Double [0..1]
+      unique ordered Under_limit_occurrence_counter : nmeta.Double [0..1]
+      unique ordered Under_limit_duration : nmeta.Double [0..1]
+      unique ordered Under_limit_magnitude : nmeta.Double [0..1]
+      unique ordered Over_limit_threshold : nmeta.Double [0..1]
+      unique ordered Over_limit_occurrence_counter : nmeta.Double [0..1]
+      unique ordered Over_limit_duration : nmeta.Double [0..1]
+      unique ordered Over_limit_magnitude : nmeta.Double [0..1]
+      unique ordered Missing_threshold : nmeta.Boolean [0..1]
+      unique ordered Missing_occurrence_counter : nmeta.Boolean [0..1]
+      unique ordered Missing_duration : nmeta.Boolean [0..1]
+      unique ordered Missing_magnitude : nmeta.Boolean [0..1]
+      unique ordered Time_threshold_for_under_limit : nmeta.String [0..1]
+      unique ordered Time_threshold_for_over_limit : nmeta.String [0..1]
+      unique ordered Time_threshold_for_missing_magnitude : nmeta.String [0..1]
+      unique ordered Contracted_value : nmeta.Double [0..1]
+      unique ordered Minimum_for_recording_interval : nmeta.Double [0..1]
+      unique ordered Maximum_for_recording_interval : nmeta.Double [0..1]
+      unique ordered Test_average : nmeta.Double [0..1]
+      unique ordered reference calculations : ElectricityValues [1 ]
+    }
+    class ElectricityHarmonics : inter.Data
+    {
+      unique ordered total : nmeta.Double [0..1]
+      unique ordered fundamental_harmonic : nmeta.Double [0..1]
+      unique ordered harmonic : nmeta.Double [0..1]
+      unique ordered Total_Harmoni_Distortion : nmeta.Double [0..1]
+      unique ordered Total_Demand_Distortion : nmeta.Double [0..1]
+      unique ordered All_harmonics : nmeta.Double [0..1]
+      unique ordered All_harmonics_to_nominal_value_ratio : nmeta.Double [0..1]
+    }
+    class ExtendedPhaseAngleMeasurement : inter.Data
+    {
+      unique ordered FromUL1toUL2 : nmeta.Double [0..1]
+      unique ordered FromUL1toUL3 : nmeta.Double [0..1]
+      unique ordered FromUL1toIL1 : nmeta.Double [0..1]
+      unique ordered FromUL1toIL2 : nmeta.Double [0..1]
+      unique ordered FromUL1toIL3 : nmeta.Double [0..1]
+      unique ordered FromUL1toIL0 : nmeta.Double [0..1]
+      unique ordered FromUL2toUL1 : nmeta.Double [0..1]
+      unique ordered FromUL2toUL3 : nmeta.Double [0..1]
+      unique ordered FromUL2toIL1 : nmeta.Double [0..1]
+      unique ordered FromUL2toIL2 : nmeta.Double [0..1]
+      unique ordered FromUL2toIL3 : nmeta.Double [0..1]
+      unique ordered FromUL2toIL0 : nmeta.Double [0..1]
+      unique ordered FromUL3toUL1 : nmeta.Double [0..1]
+      unique ordered FromUL3toUL2 : nmeta.Double [0..1]
+      unique ordered FromUL3toIL1 : nmeta.Double [0..1]
+      unique ordered FromUL3toIL2 : nmeta.Double [0..1]
+      unique ordered FromUL3toIL3 : nmeta.Double [0..1]
+      unique ordered FromUL3toIL0 : nmeta.Double [0..1]
+      unique ordered FromIL1toUL1 : nmeta.Double [0..1]
+      unique ordered FromIL1toUL2 : nmeta.Double [0..1]
+      unique ordered FromIL1toUL3 : nmeta.Double [0..1]
+      unique ordered FromIL1toIL2 : nmeta.Double [0..1]
+      unique ordered FromIL1toIL3 : nmeta.Double [0..1]
+      unique ordered FromIL1toIL0 : nmeta.Double [0..1]
+      unique ordered FromIL2toUL1 : nmeta.Double [0..1]
+      unique ordered FromIL2toUL2 : nmeta.Double [0..1]
+      unique ordered FromIL2toUL3 : nmeta.Double [0..1]
+      unique ordered FromIL2toIL1 : nmeta.Double [0..1]
+      unique ordered FromIL2toIL3 : nmeta.Double [0..1]
+      unique ordered FromIL2toIL0 : nmeta.Double [0..1]
+      unique ordered FromIL3toUL1 : nmeta.Double [0..1]
+      unique ordered FromIL3toUL2 : nmeta.Double [0..1]
+      unique ordered FromIL3toUL3 : nmeta.Double [0..1]
+      unique ordered FromIL3toIL1 : nmeta.Double [0..1]
+      unique ordered FromIL3toIL2 : nmeta.Double [0..1]
+      unique ordered FromIL3toIL0 : nmeta.Double [0..1]
+      unique ordered FromIL0toUL1 : nmeta.Double [0..1]
+      unique ordered FromIL0toUL2 : nmeta.Double [0..1]
+      unique ordered FromIL0toUL3 : nmeta.Double [0..1]
+      unique ordered FromIL0toIL1 : nmeta.Double [0..1]
+      unique ordered FromIL0toIL2 : nmeta.Double [0..1]
+      unique ordered FromIL0toIL3 : nmeta.Double [0..1]
+    }
+    class TransformerAndLineLosses : inter.Data
+    {
+      unique ordered Active_line_losses_P : nmeta.Double [0..1]
+      unique ordered Active_line_losses_M : nmeta.Double [0..1]
+      unique ordered Active_line_losses : nmeta.Double [0..1]
+      unique ordered Active_transformer_losses_P : nmeta.Double [0..1]
+      unique ordered Active_transformer_losses_M : nmeta.Double [0..1]
+      unique ordered Active_transformer_losses : nmeta.Double [0..1]
+      unique ordered Active_losses_P : nmeta.Double [0..1]
+      unique ordered Active_losses_M : nmeta.Double [0..1]
+      unique ordered Active_losses : nmeta.Double [0..1]
+      unique ordered Reactive_line_losses_P : nmeta.Double [0..1]
+      unique ordered Reactive_line_losses_M : nmeta.Double [0..1]
+      unique ordered Reactive_line_losses : nmeta.Double [0..1]
+      unique ordered Reactive_transformer_losses_P : nmeta.Double [0..1]
+      unique ordered Reactive_transformer_losses_M : nmeta.Double [0..1]
+      unique ordered Reactive_transformer_losses : nmeta.Double [0..1]
+      unique ordered Reactive_losses_P : nmeta.Double [0..1]
+      unique ordered Reactive_losses_M : nmeta.Double [0..1]
+      unique ordered Reactive_losses : nmeta.Double [0..1]
+      unique ordered Total_normalized_transformer_losses : nmeta.Double [0..1]
+      unique ordered Total_normalized_line_losses : nmeta.Double [0..1]
+      unique ordered Compensated_active_gross_P : nmeta.Double [0..1]
+      unique ordered Compensated_active_net_P : nmeta.Double [0..1]
+      unique ordered Compensated_active_gross_M : nmeta.Double [0..1]
+      unique ordered Compensated_active_net_M : nmeta.Double [0..1]
+      unique ordered Compensated_reactive_gross_P : nmeta.Double [0..1]
+      unique ordered Compensated_reactive_net_P : nmeta.Double [0..1]
+      unique ordered Compensated_reactive_gross_M : nmeta.Double [0..1]
+      unique ordered Compensated_reactive_net_M : nmeta.Double [0..1]
+      unique ordered L1active_line_losses : nmeta.Double [0..1]
+      unique ordered L1active_line_losses_M : nmeta.Double [0..1]
+      unique ordered L1active_transformer_losses_P : nmeta.Double [0..1]
+      unique ordered L1active_transformer_losses_M : nmeta.Double [0..1]
+      unique ordered L1active_transformer_losses : nmeta.Double [0..1]
+      unique ordered L1active_losses_P : nmeta.Double [0..1]
+      unique ordered L1active_losses_M : nmeta.Double [0..1]
+      unique ordered L1active_losses : nmeta.Double [0..1]
+      unique ordered L1reactive_line_losses_P : nmeta.Double [0..1]
+      unique ordered L1reactive_line_losses_M : nmeta.Double [0..1]
+      unique ordered L1reactive_line_losses : nmeta.Double [0..1]
+      unique ordered L1reactive_transformer_losses_P : nmeta.Double [0..1]
+      unique ordered L1reactive_transformer_losses_M : nmeta.Double [0..1]
+      unique ordered L1reactive_transformer_losses : nmeta.Double [0..1]
+      unique ordered L1Reactive_losses_P : nmeta.Double [0..1]
+      unique ordered L1Reactive_losses_M : nmeta.Double [0..1]
+      unique ordered L1Reactive_losses : nmeta.Double [0..1]
+      unique ordered L1Ampere_squared_hours : nmeta.Double [0..1]
+      unique ordered L1Volt_squared_hours : nmeta.Double [0..1]
+      unique ordered L2active_line_losses_P : nmeta.Double [0..1]
+      unique ordered L2active_line_losses_M : nmeta.Double [0..1]
+      unique ordered L2active_transformer_losses_P : nmeta.Double [0..1]
+      unique ordered L2active_transformer_losses_M : nmeta.Double [0..1]
+      unique ordered L2active_transformer_losses : nmeta.Double [0..1]
+      unique ordered L2active_losses_P : nmeta.Double [0..1]
+      unique ordered L2active_losses_M : nmeta.Double [0..1]
+      unique ordered L2active_losses : nmeta.Double [0..1]
+      unique ordered L2reactive_line_losses_P : nmeta.Double [0..1]
+      unique ordered L2reactive_line_losses_M : nmeta.Double [0..1]
+      unique ordered L2reactive_line_losses : nmeta.Double [0..1]
+      unique ordered L2reactive_transformer_losses : nmeta.Double [0..1]
+      unique ordered L2reactive_transformer_losses_P : nmeta.Double [0..1]
+      unique ordered L2reactive_transformer_losses_M : nmeta.Double [0..1]
+      unique ordered L2reactive_losses : nmeta.Double [0..1]
+      unique ordered L2reactive_losses_P : nmeta.Double [0..1]
+      unique ordered L2reactive_losses_M : nmeta.Double [0..1]
+      unique ordered L2Ampere_squared_hours : nmeta.Double [0..1]
+      unique ordered L2Volt_squared_hours : nmeta.Double [0..1]
+      unique ordered L3Active_line_losses_P : nmeta.Double [0..1]
+      unique ordered L3Active_line_losses_M : nmeta.Double [0..1]
+      unique ordered L3active_transformer_losses_P : nmeta.Double [0..1]
+      unique ordered L3active_transformer_losses_M : nmeta.Double [0..1]
+      unique ordered L3active_transformer_losses : nmeta.Double [0..1]
+      unique ordered L3active_losses_P : nmeta.Double [0..1]
+      unique ordered L3active_losses_M : nmeta.Double [0..1]
+      unique ordered L3active_losses : nmeta.Double [0..1]
+      unique ordered L3reactive_line_losses_P : nmeta.Double [0..1]
+      unique ordered L3reactive_line_losses_M : nmeta.Double [0..1]
+      unique ordered L3reactive_line_losses : nmeta.Double [0..1]
+      unique ordered L3reactive_transformer_losses_P : nmeta.Double [0..1]
+      unique ordered L3reactive_transformer_losses_M : nmeta.Double [0..1]
+      unique ordered L3reactive_transformer_losses : nmeta.Double [0..1]
+      unique ordered L3reactive_losses_P : nmeta.Double [0..1]
+      unique ordered L3reactive_losses_M : nmeta.Double [0..1]
+      unique ordered L3reactive_losses : nmeta.Double [0..1]
+      unique ordered L3Ampere_squared_hours : nmeta.Double [0..1]
+      unique ordered L3Volt_Squared_hours : nmeta.Double [0..1]
+    }
+
+  }
+  class LogicalDevice
+  {
+    unique ordered ID : nmeta.String [0..1]
+    composite unique ordered reference AA : objects.CurrentAssociation [1 ]
+    composite unique ordered reference name : LogicalDeviceName [0..1]
+    composite unique ordered reference AutoConnect : objects.AutoConnectObject [0..1]
+    composite unique ordered reference BillingPeriodValues : objects.BillingPeriodValues [0..1]
+    composite unique ordered reference ElectricityID : objects.ElectricityID [0..1]
+    composite unique ordered reference ProgramEntries : objects.ElectricityProgramEntries [0..1]
+    composite unique ordered reference OutputPulse : objects.OutputPulseValues_constants [0..1]
+    composite unique ordered reference ReadingFactor : objects.ReadingFactorAndCT_VTratio [0..1]
+    composite unique ordered reference NominalValues : objects.ElectricityNominalValues [0..1]
+    composite unique ordered reference InputPulse : objects.InputPulseValuesOrConstants [0..1]
+    composite unique ordered reference MeasurementPeriod : objects.MeasurementPeriod_recordingInterval_billingPeriodDuration [0..1]
+    composite unique ordered reference TimeEntries : objects.TimeEntries [0..1]
+    composite unique ordered reference TransformerLineLosses : objects.TransformerAndLineLosses [0..1]
+    composite unique ordered reference MeasurementAlgorithm : objects.MeasurementMethods [0..1]
+    composite unique ordered reference MeteringPoint : objects.MeteringPointID [0..1]
+    composite unique ordered reference ElectricityRelatedStatus : objects.ElectricityRelatedStatusData [0..1]
+    composite unique ordered reference RegisterMonitor : objects.RegisterMonitorObject [0..1]
+    composite unique ordered reference ElectricityValues : objects.ElectricityValues [0..1]
+    composite unique ordered reference MeasurementValueTypes : objects.MeasurementValues [0..1]
+    composite unique ordered reference Harmonics : objects.ElectricityHarmonics [0..1]
+    composite unique ordered reference Tariffs : objects.CurrentlyActiveTariff [0..1]
+    composite unique ordered reference Phaseangles : objects.ExtendedPhaseAngleMeasurement [0..1]
+  }
+  class PhysicalDevice
+  {
+    unique ordered ID : nmeta.String [0..1]
+    unique ordered reference managementLogicalDevice : ManagementLogicalDevice [0..1]
+    unique ordered reference LogicalDevice : LogicalDevice [0..*]
+    composite unique ordered reference ElectricityRelatedStatus : objects.ElectricityRelatedStatusData [0..1]
+    composite unique ordered reference AA : objects.CurrentAssociation [1 ]
+    composite unique ordered reference AutoConnect : objects.AutoConnectObject [0..1]
+    composite unique ordered reference BillingPeriodValues : objects.BillingPeriodValues [0..1]
+    composite unique ordered reference ElectricityID : objects.ElectricityID [0..1]
+    composite unique ordered reference ProgramEntries : objects.ElectricityProgramEntries [0..1]
+    composite unique ordered reference OutputPulse : objects.OutputPulseValues_constants [0..1]
+    composite unique ordered reference ReadingFactor : objects.ReadingFactorAndCT_VTratio [0..1]
+    composite unique ordered reference NominalValues : objects.ElectricityNominalValues [0..1]
+    composite unique ordered reference InputPulse : objects.InputPulseValuesOrConstants [0..1]
+    composite unique ordered reference MeasurementPeriod : objects.MeasurementPeriod_recordingInterval_billingPeriodDuration [0..1]
+    composite unique ordered reference TimeEntries : objects.TimeEntries [0..1]
+    composite unique ordered reference TransformerLineLosses : objects.TransformerAndLineLosses [0..1]
+    composite unique ordered reference MeasurementAlgorithm : objects.MeasurementMethods [0..1]
+    composite unique ordered reference MeteringPoint : objects.MeteringPointID [0..1]
+    composite unique ordered reference RegisterMonitor : objects.RegisterMonitorObject [0..1]
+    composite unique ordered reference ElectricityValues : objects.ElectricityValues [0..1]
+    composite unique ordered reference MeasurementValueTypes : objects.MeasurementValues [0..1]
+    composite unique ordered reference Harmonics : objects.ElectricityHarmonics [0..1]
+    composite unique ordered reference Tariffs : objects.CurrentlyActiveTariff [0..1]
+    composite unique ordered reference Phaseangles : objects.ExtendedPhaseAngleMeasurement [0..1]
+  }
+  class ManagementLogicalDevice : LogicalDevice
+  {
+  }
+  class LogicalDeviceName
+  {
+    composite unique ordered reference name : objects.SAPAssignmentCurrent [1 ]
+  }
+  class COSEM
+  {
+    composite unique ordered reference PhysicalDevice : PhysicalDevice [0..*]
+    composite unique ordered reference LogicalDevice : LogicalDevice [0..*]
+  }
+
+}

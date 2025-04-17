@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>AnyText.PerformanceTests.AnyMetaInitializeUpdateBenchmark-20250221-160259</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.3194)
+AMD Ryzen 7 PRO 6850H with Radeon Graphics, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 9.0.200
+  [Host]     : .NET 8.0.13 (8.0.1325.6609), X64 RyuJIT AVX2
+  Job-AJYIJD : .NET 8.0.13 (8.0.1325.6609), X64 RyuJIT AVX2
+</code></pre>
+<pre><code>InvocationCount=1  IterationCount=50  UnrollFactor=1  
+</code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>TokenChanges</th><th>Model</th><th>Mean  </th><th>Error </th><th>StdDev</th><th>Median</th>
+</tr>
+</thead><tbody><tr><td>ReInitialize</td><td>1</td><td>61850</td><td>68,104.8 &mu;s</td><td>7,828.35 &mu;s</td><td>15,813.66 &mu;s</td><td>68,569.2 &mu;s</td>
+</tr><tr><td>Update</td><td>1</td><td>61850</td><td>1,076.2 &mu;s</td><td>124.61 &mu;s</td><td>251.71 &mu;s</td><td>1,074.8 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>1</td><td>61850</td><td>1,134.1 &mu;s</td><td>117.51 &mu;s</td><td>237.39 &mu;s</td><td>1,103.5 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>1</td><td>COSEM</td><td>35,219.4 &mu;s</td><td>3,380.97 &mu;s</td><td>6,829.73 &mu;s</td><td>33,006.3 &mu;s</td>
+</tr><tr><td>Update</td><td>1</td><td>COSEM</td><td>1,461.0 &mu;s</td><td>235.20 &mu;s</td><td>469.72 &mu;s</td><td>1,391.8 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>1</td><td>COSEM</td><td>1,429.1 &mu;s</td><td>208.08 &mu;s</td><td>415.56 &mu;s</td><td>1,454.6 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>1</td><td>KDM</td><td>33,316.0 &mu;s</td><td>3,815.19 &mu;s</td><td>7,706.88 &mu;s</td><td>32,237.0 &mu;s</td>
+</tr><tr><td>Update</td><td>1</td><td>KDM</td><td>803.2 &mu;s</td><td>125.08 &mu;s</td><td>243.96 &mu;s</td><td>728.1 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>1</td><td>KDM</td><td>819.5 &mu;s</td><td>110.77 &mu;s</td><td>216.04 &mu;s</td><td>761.0 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>1</td><td>NMeta</td><td>5,384.1 &mu;s</td><td>1,871.75 &mu;s</td><td>3,694.66 &mu;s</td><td>3,771.8 &mu;s</td>
+</tr><tr><td>Update</td><td>1</td><td>NMeta</td><td>451.4 &mu;s</td><td>45.54 &mu;s</td><td>88.82 &mu;s</td><td>454.5 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>1</td><td>NMeta</td><td>440.4 &mu;s</td><td>51.35 &mu;s</td><td>101.36 &mu;s</td><td>439.2 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>1</td><td>schema</td><td>293,117.3 &mu;s</td><td>38,398.96 &mu;s</td><td>77,567.81 &mu;s</td><td>277,497.2 &mu;s</td>
+</tr><tr><td>Update</td><td>1</td><td>schema</td><td>1,164.4 &mu;s</td><td>116.04 &mu;s</td><td>226.33 &mu;s</td><td>1,147.7 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>1</td><td>schema</td><td>1,211.5 &mu;s</td><td>139.58 &mu;s</td><td>272.25 &mu;s</td><td>1,200.1 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>10</td><td>61850</td><td>61,206.6 &mu;s</td><td>3,421.15 &mu;s</td><td>6,832.40 &mu;s</td><td>63,265.0 &mu;s</td>
+</tr><tr><td>Update</td><td>10</td><td>61850</td><td>4,228.0 &mu;s</td><td>552.43 &mu;s</td><td>1,090.43 &mu;s</td><td>4,182.1 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>10</td><td>61850</td><td>5,256.2 &mu;s</td><td>902.58 &mu;s</td><td>1,738.97 &mu;s</td><td>5,213.8 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>10</td><td>COSEM</td><td>30,898.7 &mu;s</td><td>3,147.79 &mu;s</td><td>6,358.70 &mu;s</td><td>27,873.5 &mu;s</td>
+</tr><tr><td>Update</td><td>10</td><td>COSEM</td><td>4,468.8 &mu;s</td><td>824.59 &mu;s</td><td>1,665.72 &mu;s</td><td>4,392.7 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>10</td><td>COSEM</td><td>5,616.8 &mu;s</td><td>924.68 &mu;s</td><td>1,803.52 &mu;s</td><td>5,421.4 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>10</td><td>KDM</td><td>33,345.0 &mu;s</td><td>3,975.82 &mu;s</td><td>8,031.36 &mu;s</td><td>29,321.3 &mu;s</td>
+</tr><tr><td>Update</td><td>10</td><td>KDM</td><td>4,262.5 &mu;s</td><td>541.77 &mu;s</td><td>1,081.97 &mu;s</td><td>4,046.1 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>10</td><td>KDM</td><td>6,600.0 &mu;s</td><td>1,013.68 &mu;s</td><td>2,024.43 &mu;s</td><td>6,039.2 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>10</td><td>NMeta</td><td>6,629.0 &mu;s</td><td>1,805.90 &mu;s</td><td>3,648.00 &mu;s</td><td>4,909.3 &mu;s</td>
+</tr><tr><td>Update</td><td>10</td><td>NMeta</td><td>1,693.9 &mu;s</td><td>127.17 &mu;s</td><td>251.02 &mu;s</td><td>1,666.8 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>10</td><td>NMeta</td><td>1,963.0 &mu;s</td><td>389.19 &mu;s</td><td>749.84 &mu;s</td><td>2,053.9 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>10</td><td>schema</td><td>225,225.0 &mu;s</td><td>8,358.27 &mu;s</td><td>15,698.86 &mu;s</td><td>221,268.5 &mu;s</td>
+</tr><tr><td>Update</td><td>10</td><td>schema</td><td>4,170.4 &mu;s</td><td>220.02 &mu;s</td><td>439.41 &mu;s</td><td>4,279.5 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>10</td><td>schema</td><td>5,149.2 &mu;s</td><td>499.51 &mu;s</td><td>887.88 &mu;s</td><td>5,132.6 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>100</td><td>61850</td><td>49,849.2 &mu;s</td><td>1,030.09 &mu;s</td><td>1,959.85 &mu;s</td><td>49,421.6 &mu;s</td>
+</tr><tr><td>Update</td><td>100</td><td>61850</td><td>4,695.4 &mu;s</td><td>362.43 &mu;s</td><td>680.73 &mu;s</td><td>4,655.6 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>100</td><td>61850</td><td>9,054.3 &mu;s</td><td>1,371.80 &mu;s</td><td>2,642.99 &mu;s</td><td>8,867.5 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>100</td><td>COSEM</td><td>25,080.4 &mu;s</td><td>729.79 &mu;s</td><td>1,474.21 &mu;s</td><td>25,454.3 &mu;s</td>
+</tr><tr><td>Update</td><td>100</td><td>COSEM</td><td>3,741.8 &mu;s</td><td>301.82 &mu;s</td><td>559.45 &mu;s</td><td>3,625.9 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>100</td><td>COSEM</td><td>6,114.3 &mu;s</td><td>1,190.56 &mu;s</td><td>2,146.83 &mu;s</td><td>6,408.3 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>100</td><td>KDM</td><td>26,621.9 &mu;s</td><td>901.50 &mu;s</td><td>1,800.39 &mu;s</td><td>26,630.7 &mu;s</td>
+</tr><tr><td>Update</td><td>100</td><td>KDM</td><td>3,735.0 &mu;s</td><td>311.92 &mu;s</td><td>578.16 &mu;s</td><td>3,759.2 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>100</td><td>KDM</td><td>6,078.2 &mu;s</td><td>944.91 &mu;s</td><td>1,774.76 &mu;s</td><td>5,894.2 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>100</td><td>NMeta</td><td>6,025.0 &mu;s</td><td>1,728.56 &mu;s</td><td>3,491.78 &mu;s</td><td>4,159.0 &mu;s</td>
+</tr><tr><td>Update</td><td>100</td><td>NMeta</td><td>4,961.4 &mu;s</td><td>1,091.48 &mu;s</td><td>2,204.83 &mu;s</td><td>5,487.3 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>100</td><td>NMeta</td><td>6,270.1 &mu;s</td><td>1,960.30 &mu;s</td><td>3,959.91 &mu;s</td><td>5,935.6 &mu;s</td>
+</tr><tr><td>ReInitialize</td><td>100</td><td>schema</td><td>197,150.6 &mu;s</td><td>5,279.30 &mu;s</td><td>10,296.86 &mu;s</td><td>193,584.7 &mu;s</td>
+</tr><tr><td>Update</td><td>100</td><td>schema</td><td>11,327.7 &mu;s</td><td>2,153.04 &mu;s</td><td>4,349.24 &mu;s</td><td>8,830.4 &mu;s</td>
+</tr><tr><td>UpdateAlways</td><td>100</td><td>schema</td><td>14,738.4 &mu;s</td><td>2,650.69 &mu;s</td><td>5,293.71 &mu;s</td><td>13,478.5 &mu;s</td>
+</tr></tbody></table>
+</body>
+</html>

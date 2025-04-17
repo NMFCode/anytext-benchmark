@@ -1,0 +1,1337 @@
+
+namespace KDM_MetaModel ( kdm ) = about:kdm
+{
+
+  namespace action ( kdmaction ) = about:kdm/action
+  {
+    class ActionElement : kdmcode.AbstractCodeElement
+    {
+      kind : nmeta.Object [0..1]
+      composite unique ordered reference codeElement : kdmcode.AbstractCodeElement [0..*]
+      composite unique ordered reference actionRelation : AbstractActionRelationship [0..*]
+    }
+    abstract class AbstractActionRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class ControlFlow : AbstractActionRelationship
+    {
+      unique reference to : ActionElement [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class Calls : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.ControlElement [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class Creates : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.Datatype [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class Reads : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.DataElement [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class Writes : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.DataElement [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class CompliesTo : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.CodeItem [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class Flow : ControlFlow
+    {
+    }
+    class TrueFlow : ControlFlow
+    {
+    }
+    class FalseFlow : ControlFlow
+    {
+    }
+    class GuardedFlow : ControlFlow
+    {
+    }
+    class UsesType : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.Datatype [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class Addresses : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.ComputationalObject [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class ActionRelationship : AbstractActionRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class Throws : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.DataElement [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class Dispatches : AbstractActionRelationship
+    {
+      unique reference to : kdmcode.DataElement [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class EntryFlow : AbstractActionRelationship
+    {
+      unique reference to : ActionElement [1 ]
+      unique reference from : kdmcode.ControlElement [1 ]
+    }
+    class BlockUnit : ActionElement
+    {
+    }
+    class ExceptionUnit : BlockUnit
+    {
+    }
+    class TryUnit : ExceptionUnit
+    {
+    }
+    class FinallyUnit : ExceptionUnit
+    {
+    }
+    class CatchUnit : ExceptionUnit
+    {
+    }
+    class ExitFlow : AbstractActionRelationship
+    {
+      unique reference to : ActionElement [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+    class ExceptionFlow : AbstractActionRelationship
+    {
+      unique reference to : ActionElement [1 ]
+      unique reference from : ActionElement [1 ]
+    }
+
+  }
+
+  namespace build ( kdmbuild ) = about:kdm/build
+  {
+    abstract class AbstractBuildElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference buildRelation : AbstractBuildRelationship [0..*]
+    }
+    class BuildResource : AbstractBuildElement
+    {
+      unique reference implementation : kdmcore.KDMEntity [0..*]
+      unique reference groupedBuild : AbstractBuildElement [0..*]
+      composite unique ordered reference buildElement : AbstractBuildElement [0..*]
+    }
+    class BuildDescription : BuildResource
+    {
+      text : nmeta.Object [0..1]
+      composite unique ordered reference source : kdmsource.SourceRef [0..*]
+    }
+    class SymbolicLink : AbstractBuildElement
+    {
+    }
+    abstract class AbstractBuildRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class LinksTo : AbstractBuildRelationship
+    {
+      unique reference to : AbstractBuildElement [1 ]
+      unique reference from : SymbolicLink [1 ]
+    }
+    class Consumes : AbstractBuildRelationship
+    {
+      unique reference to : AbstractBuildElement [1 ]
+      unique reference from : BuildStep [1 ]
+    }
+    class BuildModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference buildElement : AbstractBuildElement [0..*]
+    }
+    class BuildComponent : BuildResource
+    {
+    }
+    class Supplier : AbstractBuildElement
+    {
+    }
+    class Tool : AbstractBuildElement
+    {
+    }
+    class BuildElement : AbstractBuildElement
+    {
+    }
+    class BuildRelationship : AbstractBuildRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : AbstractBuildElement [1 ]
+    }
+    class SuppliedBy : AbstractBuildRelationship
+    {
+      unique reference to : Supplier [1 ]
+      unique reference from : AbstractBuildElement [1 ]
+    }
+    class Library : BuildResource
+    {
+    }
+    class BuildStep : BuildResource
+    {
+    }
+    class Produces : AbstractBuildRelationship
+    {
+      unique reference to : AbstractBuildElement [1 ]
+      unique reference from : BuildStep [1 ]
+    }
+    class SupportedBy : AbstractBuildRelationship
+    {
+      unique reference to : Tool [1 ]
+      unique reference from : BuildStep [1 ]
+    }
+    class BuildProduct : BuildResource
+    {
+    }
+    class DescribedBy : AbstractBuildRelationship
+    {
+      unique reference to : BuildDescription [1 ]
+      unique reference from : BuildStep [1 ]
+    }
+
+  }
+
+  namespace code ( kdmcode ) = about:kdm/code
+  {
+    abstract class AbstractCodeElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference source : kdmsource.SourceRef [0..*]
+      composite unique ordered reference comment : CommentUnit [0..*]
+      composite unique ordered reference codeRelation : AbstractCodeRelationship [0..*]
+    }
+    abstract class CodeItem : AbstractCodeElement
+    {
+    }
+    abstract class ComputationalObject : CodeItem
+    {
+    }
+    class ControlElement : ComputationalObject
+    {
+      unique reference type : Datatype [0..1]
+      composite unique ordered reference entryFlow : kdmaction.EntryFlow [0..*]
+      composite unique ordered reference codeElement : AbstractCodeElement [0..*]
+    }
+    class MethodUnit : ControlElement
+    {
+      kind : MethodKind [0..1]
+      export : ExportKind [0..1]
+    }
+    class Module : CodeItem
+    {
+      composite unique ordered reference codeElement : AbstractCodeElement [0..*]
+    }
+    class CodeAssembly : Module
+    {
+    }
+    class CallableUnit : ControlElement
+    {
+      kind : CallableKind [0..1]
+    }
+    abstract class Datatype : CodeItem
+    {
+    }
+    class TemplateUnit : Datatype
+    {
+      composite unique ordered reference codeElement : CodeItem [0..*]
+    }
+    class TemplateParameter : Datatype
+    {
+    }
+    abstract class AbstractCodeRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class InstanceOf : AbstractCodeRelationship
+    {
+      unique reference to : TemplateUnit [1 ]
+      unique reference from : AbstractCodeElement [1 ]
+    }
+    class CompilationUnit : Module
+    {
+    }
+    class CodeModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference codeElement : AbstractCodeElement [0..*]
+    }
+    class DerivedType : Datatype
+    {
+      composite unique ordered reference itemUnit : ItemUnit [1 ]
+    }
+    class ArrayType : DerivedType
+    {
+      size : nmeta.Object [0..1]
+      composite unique ordered reference indexUnit : IndexUnit [1 ]
+    }
+    class PrimitiveType : Datatype
+    {
+    }
+    class BooleanType : PrimitiveType
+    {
+    }
+    class CharType : PrimitiveType
+    {
+    }
+    class ClassUnit : Datatype
+    {
+      isAbstract : nmeta.Object [0..1]
+      composite unique ordered reference codeElement : CodeItem [0..*]
+    }
+    class CompositeType : Datatype
+    {
+      composite unique ordered reference itemUnit : ItemUnit [0..*]
+    }
+    class RecordType : CompositeType
+    {
+    }
+    class EnumeratedType : Datatype
+    {
+      composite unique ordered reference value : Value [0..*]
+    }
+    class Extends : AbstractCodeRelationship
+    {
+      unique reference to : Datatype [1 ]
+      unique reference from : Datatype [1 ]
+    }
+    class ScaledType : PrimitiveType
+    {
+    }
+    class FloatType : PrimitiveType
+    {
+    }
+    class HasType : AbstractCodeRelationship
+    {
+      unique reference to : Datatype [1 ]
+      unique reference from : CodeItem [1 ]
+    }
+    class ImplementationOf : AbstractCodeRelationship
+    {
+      unique reference to : CodeItem [1 ]
+      unique reference from : CodeItem [1 ]
+    }
+    class Implements : AbstractCodeRelationship
+    {
+      unique reference to : CodeItem [1 ]
+      unique reference from : CodeItem [1 ]
+    }
+    class IntegerType : PrimitiveType
+    {
+    }
+    class InterfaceUnit : Datatype
+    {
+      composite unique ordered reference codeElement : CodeItem [0..*]
+    }
+    class PointerType : DerivedType
+    {
+    }
+    abstract class DefinedType : Datatype
+    {
+      unique reference type : Datatype [1 ]
+      composite unique ordered reference codeElement : Datatype [0..1]
+    }
+    class TypeUnit : DefinedType
+    {
+    }
+    class RangeType : DerivedType
+    {
+      lower : nmeta.Object [0..1]
+      upper : nmeta.Object [0..1]
+    }
+    class Signature : Datatype
+    {
+      composite unique ordered reference parameterUnit : ParameterUnit [0..*]
+    }
+    class DataElement : ComputationalObject
+    {
+      ext : nmeta.Object [0..1]
+      size : nmeta.Object [0..1]
+      unique reference type : Datatype [1 ]
+      composite unique ordered reference codeElement : Datatype [0..*]
+    }
+    class StringType : PrimitiveType
+    {
+    }
+    class ChoiceType : CompositeType
+    {
+    }
+    class NamespaceUnit : CodeItem
+    {
+      unique reference groupedCode : CodeItem [0..*]
+    }
+    class VisibleIn : AbstractCodeRelationship
+    {
+      unique reference to : CodeItem [1 ]
+      unique reference from : CodeItem [1 ]
+    }
+    class CommentUnit : kdmcore.ModelElement
+    {
+      text : nmeta.Object [0..1]
+    }
+    class SharedUnit : CompilationUnit
+    {
+    }
+    class DecimalType : PrimitiveType
+    {
+    }
+    class DateType : PrimitiveType
+    {
+    }
+    class TimeType : PrimitiveType
+    {
+    }
+    enum MethodKind
+    {
+      operator = 1
+      destructor = 2
+      method = 3
+      abstract = 4
+      virtual = 5
+      unknown = 6
+      constructor = 7
+    }
+    class VoidType : PrimitiveType
+    {
+    }
+    abstract class ValueElement : DataElement
+    {
+    }
+    class Value : ValueElement
+    {
+    }
+    class ValueList : ValueElement
+    {
+      composite unique ordered reference valueElement : ValueElement [0..*]
+    }
+    class StorableUnit : DataElement
+    {
+      kind : StorableKind [0..1]
+    }
+    class MemberUnit : DataElement
+    {
+      export : ExportKind [0..1]
+    }
+    class ParameterUnit : DataElement
+    {
+      kind : ParameterKind [0..1]
+      pos : nmeta.Object [0..1]
+    }
+    class ItemUnit : DataElement
+    {
+    }
+    class IndexUnit : DataElement
+    {
+    }
+    class SynonymType : DefinedType
+    {
+    }
+    class SequenceType : DerivedType
+    {
+      size : nmeta.Object [0..1]
+    }
+    class BagType : DerivedType
+    {
+      size : nmeta.Object [0..1]
+    }
+    class SetType : DerivedType
+    {
+      size : nmeta.Object [0..1]
+    }
+    class CodeElement : CodeItem
+    {
+    }
+    class CodeRelationship : AbstractCodeRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : CodeItem [1 ]
+    }
+    enum ParameterKind
+    {
+      byReference = 1
+      unknown = 2
+      exception = 3
+      return = 4
+      byValue = 5
+      catchall = 6
+      byName = 7
+      throws = 8
+      variadic = 9
+    }
+    enum ExportKind
+    {
+      private = 1
+      unknown = 2
+      public = 3
+      protected = 4
+      final = 5
+    }
+    class LanguageUnit : Module
+    {
+    }
+    class OrdinalType : PrimitiveType
+    {
+    }
+    class BitstringType : PrimitiveType
+    {
+    }
+    class OctetType : PrimitiveType
+    {
+    }
+    class OctetstringType : PrimitiveType
+    {
+    }
+    class BitType : PrimitiveType
+    {
+    }
+    enum StorableKind
+    {
+      global = 1
+      external = 2
+      static = 3
+      unknown = 4
+      register = 5
+      local = 6
+    }
+    enum CallableKind
+    {
+      external = 1
+      regular = 2
+      stored = 3
+      operator = 4
+      unknown = 5
+    }
+    class Imports : AbstractCodeRelationship
+    {
+      unique reference to : CodeItem [1 ]
+      unique reference from : CodeItem [1 ]
+    }
+    class Package : Module
+    {
+    }
+    class ParameterTo : AbstractCodeRelationship
+    {
+      unique reference to : CodeItem [1 ]
+      unique reference from : AbstractCodeElement [1 ]
+    }
+    class TemplateType : Datatype
+    {
+    }
+    class PreprocessorDirective : AbstractCodeElement
+    {
+      composite unique ordered reference codeElement : AbstractCodeElement [0..*]
+    }
+    class MacroDirective : PreprocessorDirective
+    {
+    }
+    class MacroUnit : PreprocessorDirective
+    {
+      kind : MacroKind [0..1]
+    }
+    class ConditionalDirective : PreprocessorDirective
+    {
+    }
+    class IncludeDirective : PreprocessorDirective
+    {
+    }
+    enum MacroKind
+    {
+      external = 1
+      unknown = 2
+      option = 3
+      undefined = 4
+      regular = 5
+    }
+    class VariantTo : AbstractCodeRelationship
+    {
+      unique reference to : PreprocessorDirective [1 ]
+      unique reference from : PreprocessorDirective [1 ]
+    }
+    class Expands : AbstractCodeRelationship
+    {
+      unique reference to : PreprocessorDirective [1 ]
+      unique reference from : PreprocessorDirective [1 ]
+    }
+    class Redefines : AbstractCodeRelationship
+    {
+      unique reference to : PreprocessorDirective [1 ]
+      unique reference from : PreprocessorDirective [1 ]
+    }
+    class GeneratedFrom : AbstractCodeRelationship
+    {
+      unique reference to : PreprocessorDirective [1 ]
+      unique reference from : AbstractCodeElement [1 ]
+    }
+    class Includes : AbstractCodeRelationship
+    {
+      unique reference to : AbstractCodeElement [1 ]
+      unique reference from : PreprocessorDirective [1 ]
+    }
+    class HasValue : AbstractCodeRelationship
+    {
+      unique reference to : CodeItem [1 ]
+      unique reference from : CodeItem [1 ]
+    }
+
+  }
+
+  namespace conceptual ( kdmconceptual ) = about:kdm/conceptual
+  {
+    class ConceptualModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference conceptualElement : AbstractConceptualElement [0..*]
+    }
+    abstract class AbstractConceptualElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference source : kdmsource.SourceRef [0..*]
+      unique reference implementation : kdmcore.KDMEntity [0..*]
+      composite unique ordered reference conceptualRelation : AbstractConceptualRelationship [0..*]
+      composite unique ordered reference abstraction : kdmaction.ActionElement [0..*]
+    }
+    class TermUnit : AbstractConceptualElement
+    {
+    }
+    class ConceptualContainer : AbstractConceptualElement
+    {
+      composite unique ordered reference conceptualElement : AbstractConceptualElement [0..*]
+    }
+    class FactUnit : ConceptualContainer
+    {
+    }
+    abstract class AbstractConceptualRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class ConceptualRelationship : AbstractConceptualRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : AbstractConceptualElement [1 ]
+    }
+    class BehaviorUnit : ConceptualContainer
+    {
+    }
+    class RuleUnit : ConceptualContainer
+    {
+    }
+    class ScenarioUnit : ConceptualContainer
+    {
+    }
+    class ConceptualFlow : AbstractConceptualRelationship
+    {
+      unique reference to : ConceptualContainer [1 ]
+      unique reference from : ConceptualContainer [1 ]
+    }
+    class ConceptualElement : AbstractConceptualElement
+    {
+    }
+    class ConceptualRole : AbstractConceptualElement
+    {
+      unique reference conceptualElement : AbstractConceptualElement [1 ]
+    }
+
+  }
+
+  namespace core ( kdmcore ) = about:kdm/core
+  {
+    abstract class Element
+    {
+      composite unique ordered reference attribute : kdmkdm.Attribute [0..*]
+      composite unique ordered reference annotation : kdmkdm.Annotation [0..*]
+    }
+    abstract class ModelElement : Element
+    {
+      unique reference stereotype : kdmkdm.Stereotype [0..*]
+      composite unique ordered reference taggedValue : kdmkdm.ExtendedValue [0..*]
+    }
+    abstract class KDMEntity : ModelElement
+    {
+      name : nmeta.Object [0..1]
+    }
+    abstract class KDMRelationship : ModelElement
+    {
+      unique ordered getTo ( ) : KDMEntity [0..1]
+      unique ordered getFrom ( ) : KDMEntity [0..1]
+    }
+    class AggregatedRelationship : ModelElement
+    {
+      density : nmeta.Object [0..1]
+      unique reference from : KDMEntity [1 ]
+      unique reference to : KDMEntity [1 ]
+      unique reference relation : KDMRelationship [0..*]
+    }
+
+  }
+
+  namespace data ( kdmdata ) = about:kdm/data
+  {
+    class DataModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference dataElement : AbstractDataElement [0..*]
+    }
+    abstract class AbstractDataElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference source : kdmsource.SourceRef [0..*]
+      composite unique ordered reference dataRelation : AbstractDataRelationship [0..*]
+      composite unique ordered reference abstraction : kdmaction.ActionElement [0..*]
+    }
+    class DataResource : AbstractDataElement
+    {
+    }
+    class IndexElement : DataResource
+    {
+      unique reference implementation : kdmcode.ItemUnit [0..*]
+    }
+    class UniqueKey : IndexElement
+    {
+    }
+    class Index : IndexElement
+    {
+    }
+    abstract class AbstractDataRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class KeyRelation : AbstractDataRelationship
+    {
+      unique reference to : UniqueKey [1 ]
+      unique reference from : ReferenceKey [1 ]
+    }
+    class ReferenceKey : IndexElement
+    {
+    }
+    class DataContainer : DataResource
+    {
+      composite unique ordered reference dataElement : DataResource [0..*]
+    }
+    class Catalog : DataContainer
+    {
+    }
+    class RelationalSchema : DataContainer
+    {
+      composite unique ordered reference codeElement : kdmcode.CodeItem [0..*]
+    }
+    class ColumnSet : DataContainer
+    {
+      composite unique ordered reference itemUnit : kdmcode.ItemUnit [0..*]
+    }
+    class RelationalTable : ColumnSet
+    {
+    }
+    class RelationalView : ColumnSet
+    {
+    }
+    class RecordFile : ColumnSet
+    {
+    }
+    class DataEvent : DataResource
+    {
+      kind : nmeta.Object [0..1]
+    }
+    class XMLSchema : AbstractDataElement
+    {
+      composite unique ordered reference contentElement : AbstractContentElement [0..*]
+    }
+    abstract class AbstractContentElement : AbstractDataElement
+    {
+    }
+    class ComplexContentType : AbstractContentElement
+    {
+      composite unique ordered reference contentElement : AbstractContentElement [0..*]
+    }
+    class AllContent : ComplexContentType
+    {
+    }
+    class SeqContent : ComplexContentType
+    {
+    }
+    class ChoiceContent : ComplexContentType
+    {
+    }
+    class ContentItem : AbstractContentElement
+    {
+      unique reference type : ComplexContentType [0..1]
+      composite unique ordered reference contentElement : AbstractContentElement [0..*]
+    }
+    class GroupContent : ContentItem
+    {
+    }
+    class ContentRestriction : AbstractContentElement
+    {
+      kind : nmeta.Object [0..1]
+      value : nmeta.Object [0..1]
+    }
+    class SimpleContentType : ComplexContentType
+    {
+      kind : nmeta.Object [0..1]
+      unique reference type : ComplexContentType [0..*]
+    }
+    class ExtendedDataElement : AbstractDataElement
+    {
+    }
+    class DataRelationship : AbstractDataRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : AbstractDataElement [1 ]
+    }
+    class MixedContent : ComplexContentType
+    {
+    }
+    class ContentReference : ContentItem
+    {
+    }
+    class DataAction : AbstractDataElement
+    {
+      kind : nmeta.Object [0..1]
+      unique reference implementation : kdmaction.ActionElement [0..*]
+      composite unique ordered reference dataElement : DataEvent [0..*]
+    }
+    class ReadsColumnSet : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : ColumnSet [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class ContentAttribute : ContentItem
+    {
+    }
+    class TypedBy : AbstractDataRelationship
+    {
+      unique reference to : ComplexContentType [1 ]
+      unique reference from : ContentItem [1 ]
+    }
+    class ReferenceTo : AbstractDataRelationship
+    {
+      unique reference to : ContentItem [1 ]
+      unique reference from : ContentItem [1 ]
+    }
+    class RestrictionOf : AbstractDataRelationship
+    {
+      unique reference to : ComplexContentType [1 ]
+      unique reference from : ComplexContentType [1 ]
+    }
+    class ExtensionTo : AbstractDataRelationship
+    {
+      unique reference to : ComplexContentType [1 ]
+      unique reference from : ComplexContentType [1 ]
+    }
+    class DatatypeOf : AbstractDataRelationship
+    {
+      unique reference to : kdmcode.Datatype [1 ]
+      unique reference from : ComplexContentType [1 ]
+    }
+    class HasContent : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : AbstractDataElement [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class WritesColumnSet : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : ColumnSet [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class ProducesDataEvent : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : DataEvent [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class DataSegment : ColumnSet
+    {
+    }
+    class ContentElement : ContentItem
+    {
+    }
+    class ManagesData : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : AbstractDataElement [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+
+  }
+
+  namespace event ( kdmevent ) = about:kdm/event
+  {
+    class EventModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference eventElement : AbstractEventElement [0..*]
+    }
+    abstract class AbstractEventElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference source : kdmsource.SourceRef [0..*]
+      composite unique ordered reference eventRelation : AbstractEventRelationship [0..*]
+      composite unique ordered reference abstraction : kdmaction.ActionElement [0..*]
+      unique reference implementation : kdmcode.AbstractCodeElement [0..*]
+    }
+    class Event : AbstractEventElement
+    {
+      kind : nmeta.Object [0..1]
+    }
+    abstract class AbstractEventRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class EventRelationship : AbstractEventRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : AbstractEventElement [1 ]
+    }
+    class EventResource : AbstractEventElement
+    {
+      composite unique ordered reference eventElement : AbstractEventElement [0..*]
+    }
+    class State : EventResource
+    {
+    }
+    class Transition : EventResource
+    {
+    }
+    class OnEntry : Transition
+    {
+    }
+    class OnExit : Transition
+    {
+    }
+    class EventAction : AbstractEventElement
+    {
+      kind : nmeta.Object [0..1]
+      composite unique ordered reference eventElement : Event [0..*]
+    }
+    class ReadsState : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : State [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class ProducesEvent : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : Event [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class ConsumesEvent : AbstractEventRelationship
+    {
+      unique reference to : Event [1 ]
+      unique reference from : Transition [1 ]
+    }
+    class NextState : AbstractEventRelationship
+    {
+      unique reference to : State [1 ]
+      unique reference from : Transition [1 ]
+    }
+    class InitialState : State
+    {
+    }
+    class EventElement : AbstractEventElement
+    {
+    }
+    class HasState : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : AbstractEventElement [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+
+  }
+
+  namespace source ( kdmsource ) = about:kdm/source
+  {
+    class SourceRef : kdmcore.Element
+    {
+      language : nmeta.Object [0..1]
+      snippet : nmeta.Object [0..1]
+      composite unique ordered reference region : SourceRegion [0..*]
+    }
+    class SourceRegion : kdmcore.Element
+    {
+      startLine : nmeta.Object [0..1]
+      startPosition : nmeta.Object [0..1]
+      endLine : nmeta.Object [0..1]
+      endPosition : nmeta.Object [0..1]
+      language : nmeta.Object [0..1]
+      path : nmeta.Object [0..1]
+      unique reference file : SourceFile [0..1]
+    }
+    class InventoryModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference inventoryElement : AbstractInventoryElement [0..*]
+    }
+    abstract class AbstractInventoryElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference inventoryRelation : AbstractInventoryRelationship [0..*]
+    }
+    class InventoryItem : AbstractInventoryElement
+    {
+      version : nmeta.Object [0..1]
+      path : nmeta.Object [0..1]
+    }
+    class SourceFile : InventoryItem
+    {
+      language : nmeta.Object [0..1]
+      encoding : nmeta.Object [0..1]
+    }
+    class Image : InventoryItem
+    {
+    }
+    class ResourceDescription : InventoryItem
+    {
+    }
+    class Configuration : InventoryItem
+    {
+    }
+    class InventoryContainer : AbstractInventoryElement
+    {
+      composite unique ordered reference inventoryElement : AbstractInventoryElement [0..*]
+    }
+    class Directory : InventoryContainer
+    {
+      path : nmeta.Object [0..1]
+    }
+    class Project : InventoryContainer
+    {
+    }
+    abstract class AbstractInventoryRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class BinaryFile : InventoryItem
+    {
+    }
+    class ExecutableFile : InventoryItem
+    {
+    }
+    class DependsOn : AbstractInventoryRelationship
+    {
+      unique reference to : AbstractInventoryElement [1 ]
+      unique reference from : AbstractInventoryElement [1 ]
+    }
+    class InventoryElement : AbstractInventoryElement
+    {
+    }
+    class InventoryRelationship : AbstractInventoryRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : AbstractInventoryElement [1 ]
+    }
+
+  }
+
+  namespace platform ( kdmplatform ) = about:kdm/platform
+  {
+    abstract class AbstractPlatformElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference source : kdmsource.SourceRef [0..*]
+      composite unique ordered reference relation : AbstractPlatformRelationship [0..*]
+      composite unique ordered reference abstraction : kdmaction.ActionElement [0..*]
+      unique reference implementation : kdmcode.AbstractCodeElement [0..*]
+    }
+    class PlatformModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference platformElement : AbstractPlatformElement [0..*]
+    }
+    abstract class AbstractPlatformRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class Requires : AbstractPlatformRelationship
+    {
+      unique reference to : AbstractPlatformElement [1 ]
+      unique reference from : DeployedComponent [1 ]
+    }
+    class ResourceType : AbstractPlatformElement
+    {
+      composite unique ordered reference platformElement : AbstractPlatformElement [0..*]
+    }
+    class NamingResource : ResourceType
+    {
+    }
+    class MarshalledResource : ResourceType
+    {
+    }
+    class MessagingResource : ResourceType
+    {
+    }
+    class FileResource : ResourceType
+    {
+    }
+    class ExecutionResource : ResourceType
+    {
+    }
+    class PlatformAction : AbstractPlatformElement
+    {
+      kind : nmeta.Object [0..1]
+      composite unique ordered reference platformElement : PlatformEvent [0..*]
+    }
+    class ExternalActor : PlatformAction
+    {
+    }
+    class DataManager : ResourceType
+    {
+    }
+    class BindsTo : AbstractPlatformRelationship
+    {
+      unique reference to : ResourceType [1 ]
+      unique reference from : ResourceType [1 ]
+    }
+    class PlatformElement : AbstractPlatformElement
+    {
+    }
+    class PlatformRelationship : AbstractPlatformRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : AbstractPlatformElement [1 ]
+    }
+    class PlatformEvent : AbstractPlatformElement
+    {
+      kind : nmeta.Object [0..1]
+    }
+    class LockResource : ResourceType
+    {
+    }
+    class DeployedSoftwareSystem : AbstractPlatformElement
+    {
+      unique reference groupedComponent : DeployedComponent [0..*]
+    }
+    class Machine : AbstractPlatformElement
+    {
+      composite unique ordered reference deployedComponent : DeployedComponent [0..*]
+      composite unique ordered reference deployedResource : DeployedResource [0..*]
+    }
+    class DeployedComponent : AbstractPlatformElement
+    {
+      unique reference groupedCode : kdmcode.Module [0..*]
+    }
+    class DeployedResource : AbstractPlatformElement
+    {
+      composite unique ordered reference platformElement : ResourceType [0..*]
+    }
+    class Loads : AbstractPlatformRelationship
+    {
+      unique reference to : DeployedComponent [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class Spawns : AbstractPlatformRelationship
+    {
+      unique reference to : RuntimeResource [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class RuntimeResource : ResourceType
+    {
+    }
+    class Thread : RuntimeResource
+    {
+    }
+    class Process : RuntimeResource
+    {
+    }
+    class ReadsResource : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : ResourceType [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class WritesResource : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : ResourceType [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class ManagesResource : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : ResourceType [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class DefinedBy : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : kdmcode.CodeItem [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class StreamResource : ResourceType
+    {
+    }
+
+  }
+
+  namespace structure ( kdmstructure ) = about:kdm/structure
+  {
+    abstract class AbstractStructureElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference aggregated : kdmcore.AggregatedRelationship [0..*]
+      unique reference implementation : kdmcore.KDMEntity [0..*]
+      composite unique ordered reference structureElement : AbstractStructureElement [0..*]
+      composite unique ordered reference structureRelationship : AbstractStructureRelationship [0..*]
+    }
+    class Subsystem : AbstractStructureElement
+    {
+    }
+    class Layer : AbstractStructureElement
+    {
+    }
+    class StructureModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference structureElement : AbstractStructureElement [0..*]
+    }
+    class Component : AbstractStructureElement
+    {
+    }
+    class SoftwareSystem : AbstractStructureElement
+    {
+    }
+    abstract class AbstractStructureRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class StructureRelationship : AbstractStructureRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : AbstractStructureElement [1 ]
+    }
+    class ArchitectureView : AbstractStructureElement
+    {
+    }
+    class StructureElement : AbstractStructureElement
+    {
+    }
+
+  }
+
+  namespace kdm ( kdmkdm ) = about:kdm/kdm
+  {
+    abstract class KDMFramework : kdmcore.ModelElement
+    {
+      name : nmeta.Object [0..1]
+      composite unique ordered reference audit : Audit [0..*]
+      composite unique ordered reference extensionFamily : ExtensionFamily [0..*]
+    }
+    abstract class KDMModel : KDMFramework
+    {
+    }
+    class Audit : kdmcore.Element
+    {
+      description : nmeta.Object [0..1]
+      author : nmeta.Object [0..1]
+      date : nmeta.Object [0..1]
+    }
+    class Segment : KDMFramework
+    {
+      composite unique ordered reference segment : Segment [0..*]
+      composite unique ordered reference model : KDMModel [0..*]
+    }
+    class Attribute : kdmcore.Element
+    {
+      tag : nmeta.Object [0..1]
+      value : nmeta.Object [0..1]
+    }
+    class Annotation : kdmcore.Element
+    {
+      text : nmeta.Object [0..1]
+    }
+    class TagDefinition : kdmcore.Element
+    {
+      tag : nmeta.Object [0..1]
+      type : nmeta.Object [0..1]
+    }
+    abstract class ExtendedValue : kdmcore.Element
+    {
+      unique reference tag : TagDefinition [1 ]
+    }
+    class Stereotype : kdmcore.Element
+    {
+      name : nmeta.Object [0..1]
+      type : nmeta.Object [0..1]
+      composite unique ordered reference tag : TagDefinition [0..*]
+    }
+    class ExtensionFamily : kdmcore.Element
+    {
+      name : nmeta.Object [0..1]
+      composite unique ordered reference stereotype : Stereotype [0..*]
+    }
+    class TaggedRef : ExtendedValue
+    {
+      unique reference reference : kdmcore.ModelElement [1 ]
+    }
+    class TaggedValue : ExtendedValue
+    {
+      value : nmeta.Object [0..1]
+    }
+
+  }
+
+  namespace ui ( kdmui ) = about:kdm/ui
+  {
+    abstract class AbstractUIElement : kdmcore.KDMEntity
+    {
+      composite unique ordered reference source : kdmsource.SourceRef [0..*]
+      composite unique ordered reference UIRelation : AbstractUIRelationship [0..*]
+      unique reference implementation : kdmcode.AbstractCodeElement [0..*]
+      composite unique ordered reference abstraction : kdmaction.ActionElement [0..*]
+    }
+    class UIResource : AbstractUIElement
+    {
+      composite unique ordered reference UIElement : AbstractUIElement [0..*]
+    }
+    class UIDisplay : UIResource
+    {
+    }
+    class Screen : UIDisplay
+    {
+    }
+    class Report : UIDisplay
+    {
+    }
+    class UIModel : kdmkdm.KDMModel
+    {
+      composite unique ordered reference UIElement : AbstractUIElement [0..*]
+    }
+    abstract class AbstractUIRelationship : kdmcore.KDMRelationship
+    {
+    }
+    class UILayout : AbstractUIRelationship
+    {
+      unique reference to : UIResource [1 ]
+      unique reference from : UIResource [1 ]
+    }
+    class UIField : UIResource
+    {
+    }
+    class DisplaysImage : AbstractUIRelationship
+    {
+      unique reference to : kdmsource.Image [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class Displays : AbstractUIRelationship
+    {
+      unique reference to : UIResource [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class UIFlow : AbstractUIRelationship
+    {
+      unique reference to : AbstractUIElement [1 ]
+      unique reference from : AbstractUIElement [1 ]
+    }
+    class UIElement : AbstractUIElement
+    {
+    }
+    class UIRelationship : AbstractUIRelationship
+    {
+      unique reference to : kdmcore.KDMEntity [1 ]
+      unique reference from : AbstractUIElement [1 ]
+    }
+    class UIAction : AbstractUIElement
+    {
+      kind : nmeta.Object [0..1]
+      composite unique ordered reference UIElement : UIEvent [0..*]
+    }
+    class UIEvent : AbstractUIElement
+    {
+      kind : nmeta.Object [0..1]
+    }
+    class ReadsUI : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : UIResource [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class WritesUI : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : UIResource [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+    class ManagesUI : kdmaction.AbstractActionRelationship
+    {
+      unique reference to : UIResource [1 ]
+      unique reference from : kdmaction.ActionElement [1 ]
+    }
+
+  }
+
+}
